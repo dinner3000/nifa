@@ -1,0 +1,34 @@
+spring:
+  profiles:
+    active: dev
+
+# Tomcat
+server:
+    tomcat:
+        uri-encoding: UTF-8
+        max-threads: 100
+        min-spare-threads: 30
+        accesslog:
+          directory: logs
+          enabled: true
+          pattern: common
+          rotate: true
+          buffered: true
+          file-date-format: .yyyy-MM-dd
+          prefix: access_log
+          rename-on-rotate: false
+          request-attributes-enabled: false
+          suffix: .log
+
+    port: 8888 #tomcat端口号
+    connection-timeout: 5000 #tomcat超时时间
+
+#Logger
+logging:
+  config: classpath:logback-boot.xml #.jar中日志配置信息不需要修改
+
+#配置信息
+conf:
+  #-------------公共配置信息----------------
+  time_out: 600000  #Sftp链接超时时间,单位毫秒
+  feekBackFile: /apps/test/  #http微服务请求状态文件存放本地地址(绝对路径)，便于实时查看数据上传下载状态信息

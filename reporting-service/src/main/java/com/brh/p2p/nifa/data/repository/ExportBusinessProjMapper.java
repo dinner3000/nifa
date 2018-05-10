@@ -11,6 +11,7 @@ public interface ExportBusinessProjMapper {
 //    int insertSelective(ExportBusinessProjEntity record);
 //
     int insertAllByInputdate(String inputdate);
+    int insertAll(String inputdate);
 
     List<ExportBusinessProjEntity> selectAllByInputdate(String inputdate);
 

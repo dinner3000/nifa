@@ -6,15 +6,16 @@ import java.util.List;
 
 public interface ExportBusinessProjService {
 
-//    List<ExportBusinessProjEntity> findAllDataByInputdate(int pageNum, int pageSize, String inputdate);
-    List<ExportBusinessProjEntity> findAllDataByInputdate(String inputdate);
+    List<ExportBusinessProjEntity> findAllByInputdate(String inputdate);
 
     void generateAllByInputdate(String inputdate);
+    void generateAll(String inputdate);
 
     void removeAllByInputdate(String inputdate);
 
     void clearAll();
 
     void regenerateAllByInputdate(String inputdate);
+    void regenerateAll(String inputdate);
 
 }

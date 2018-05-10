@@ -22,26 +22,12 @@ public class ExportBusinessProjServiceImpl implements ExportBusinessProjService 
     private Configuration configuration;
 
     /**
-     * 分页查询
-     * @param pageNum
-     * @param pageSize
-     * @return
-     */
-//    @Override
-//    public List<ExportBusinessProjEntity> findAllDataByInputdate(int pageNum, int pageSize, String inputdate) {
-//
-//        //将参数传给这个方法可以实现物理分页
-//        PageHelper.startPage(pageNum, pageSize);
-//        return exportBusinessProjMapper.findAllDataByInputdate(inputdate);
-//    }
-
-    /**
      * 不分页获取所有指定日期数据
      * @param inputdate
      * @return
      */
     @Override
-    public List<ExportBusinessProjEntity> findAllDataByInputdate(String inputdate) {
+    public List<ExportBusinessProjEntity> findAllByInputdate(String inputdate) {
 
         List<ExportBusinessProjEntity> records = exportBusinessProjMapper.selectAllByInputdate(inputdate);
         logger.debug("{} records returned", records.size());
@@ -76,7 +62,14 @@ public class ExportBusinessProjServiceImpl implements ExportBusinessProjService 
     @Transactional
     public void generateAllByInputdate(String inputdate){
         int n = exportBusinessProjMapper.insertAllByInputdate(inputdate);
-        logger.debug("{} records deleted", n);
+        logger.debug("{} records inserted", n);
+    }
+
+    @Override
+    @Transactional
+    public void generateAll(String inputdate) {
+        int n = exportBusinessProjMapper.insertAll(inputdate);
+        logger.debug("{} records inserted", n);
     }
 
     /**
@@ -90,6 +83,13 @@ public class ExportBusinessProjServiceImpl implements ExportBusinessProjService 
     public void regenerateAllByInputdate(String inputdate) {
         removeAllByInputdate(inputdate);
         generateAllByInputdate(inputdate);
+    }
+
+    @Override
+    @Transactional
+    public void regenerateAll(String inputdate) {
+        clearAll();
+        generateAll(inputdate);
     }
 
 }

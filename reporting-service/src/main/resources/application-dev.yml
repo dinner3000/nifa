@@ -7,7 +7,11 @@ server:
 
 spring:
   datasource:
-    name: test
     url: jdbc:oracle:thin:@10.211.17.91:1521/brh
     username: new_portal
     password: new5020
+
+nifa:
+  report:
+    file:
+      dir: d:/temp

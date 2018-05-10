@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.brh.p2p.nifa.data.repository.ExportBusinessInvMapper" >
+  <resultMap id="BaseResultMap" type="com.brh.p2p.nifa.data.entity.ExportBusinessInvEntity" >
+    <id column="INPUTDATE" property="inputdate" jdbcType="VARCHAR" />
+    <id column="UNIQUEID" property="uniqueid" jdbcType="VARCHAR" />
+    <id column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="USERTYPE" property="usertype" jdbcType="VARCHAR" />
+    <result column="CERTTYPE" property="certtype" jdbcType="VARCHAR" />
+    <result column="CERTID" property="certid" jdbcType="VARCHAR" />
+    <result column="INDUSTRIALTYPE" property="industrialtype" jdbcType="VARCHAR" />
+    <result column="CITY" property="city" jdbcType="VARCHAR" />
+    <result column="GUILDSEC" property="guildsec" jdbcType="VARCHAR" />
+    <result column="BUSINESSSUM" property="businesssum" jdbcType="DECIMAL" />
+    <result column="INVESTSTATUS" property="investstatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    INPUTDATE, UNIQUEID, USERID, USERTYPE, CERTTYPE, CERTID, INDUSTRIALTYPE, CITY, GUILDSEC, 
+    BUSINESSSUM, INVESTSTATUS
+  </sql>
+
+  <insert id="insert" parameterType="com.brh.p2p.nifa.data.entity.ExportBusinessInvEntity" >
+    insert into EXPORT_BUSINESS_ZHAIQ_INV (INPUTDATE, UNIQUEID, USERID, 
+      USERTYPE, CERTTYPE, CERTID, 
+      INDUSTRIALTYPE, CITY, GUILDSEC, 
+      BUSINESSSUM, INVESTSTATUS)
+    values (#{inputdate,jdbcType=VARCHAR}, #{uniqueid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{usertype,jdbcType=VARCHAR}, #{certtype,jdbcType=VARCHAR}, #{certid,jdbcType=VARCHAR}, 
+      #{industrialtype,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{guildsec,jdbcType=VARCHAR}, 
+      #{businesssum,jdbcType=DECIMAL}, #{investstatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.brh.p2p.nifa.data.entity.ExportBusinessInvEntity" >
+    insert into EXPORT_BUSINESS_ZHAIQ_INV
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="inputdate != null" >
+        INPUTDATE,
+      </if>
+      <if test="uniqueid != null" >
+        UNIQUEID,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="usertype != null" >
+        USERTYPE,
+      </if>
+      <if test="certtype != null" >
+        CERTTYPE,
+      </if>
+      <if test="certid != null" >
+        CERTID,
+      </if>
+      <if test="industrialtype != null" >
+        INDUSTRIALTYPE,
+      </if>
+      <if test="city != null" >
+        CITY,
+      </if>
+      <if test="guildsec != null" >
+        GUILDSEC,
+      </if>
+      <if test="businesssum != null" >
+        BUSINESSSUM,
+      </if>
+      <if test="investstatus != null" >
+        INVESTSTATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="inputdate != null" >
+        #{inputdate,jdbcType=VARCHAR},
+      </if>
+      <if test="uniqueid != null" >
+        #{uniqueid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="usertype != null" >
+        #{usertype,jdbcType=VARCHAR},
+      </if>
+      <if test="certtype != null" >
+        #{certtype,jdbcType=VARCHAR},
+      </if>
+      <if test="certid != null" >
+        #{certid,jdbcType=VARCHAR},
+      </if>
+      <if test="industrialtype != null" >
+        #{industrialtype,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="guildsec != null" >
+        #{guildsec,jdbcType=VARCHAR},
+      </if>
+      <if test="businesssum != null" >
+        #{businesssum,jdbcType=DECIMAL},
+      </if>
+      <if test="investstatus != null" >
+        #{investstatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.brh.p2p.nifa.data.entity.ExportBusinessInvEntity" >
+    update EXPORT_BUSINESS_ZHAIQ_INV
+    <set >
+      <if test="usertype != null" >
+        USERTYPE = #{usertype,jdbcType=VARCHAR},
+      </if>
+      <if test="certtype != null" >
+        CERTTYPE = #{certtype,jdbcType=VARCHAR},
+      </if>
+      <if test="certid != null" >
+        CERTID = #{certid,jdbcType=VARCHAR},
+      </if>
+      <if test="industrialtype != null" >
+        INDUSTRIALTYPE = #{industrialtype,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        CITY = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="guildsec != null" >
+        GUILDSEC = #{guildsec,jdbcType=VARCHAR},
+      </if>
+      <if test="businesssum != null" >
+        BUSINESSSUM = #{businesssum,jdbcType=DECIMAL},
+      </if>
+      <if test="investstatus != null" >
+        INVESTSTATUS = #{investstatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where INPUTDATE = #{inputdate,jdbcType=VARCHAR}
+      and UNIQUEID = #{uniqueid,jdbcType=VARCHAR}
+      and USERID = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.brh.p2p.nifa.data.entity.ExportBusinessInvEntity" >
+    update EXPORT_BUSINESS_ZHAIQ_INV
+    set USERTYPE = #{usertype,jdbcType=VARCHAR},
+      CERTTYPE = #{certtype,jdbcType=VARCHAR},
+      CERTID = #{certid,jdbcType=VARCHAR},
+      INDUSTRIALTYPE = #{industrialtype,jdbcType=VARCHAR},
+      CITY = #{city,jdbcType=VARCHAR},
+      GUILDSEC = #{guildsec,jdbcType=VARCHAR},
+      BUSINESSSUM = #{businesssum,jdbcType=DECIMAL},
+      INVESTSTATUS = #{investstatus,jdbcType=VARCHAR}
+    where INPUTDATE = #{inputdate,jdbcType=VARCHAR}
+      and UNIQUEID = #{uniqueid,jdbcType=VARCHAR}
+      and USERID = #{userid,jdbcType=VARCHAR}
+  </update>
+</mapper>

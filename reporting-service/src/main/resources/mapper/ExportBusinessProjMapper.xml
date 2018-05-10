@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.brh.p2p.nifa.data.repository.ExportBusinessProjMapper" >
+  <resultMap id="BaseResultMap" type="com.brh.p2p.nifa.data.entity.ExportBusinessProjEntity" >
+    <id column="INPUTDATE" property="inputdate" jdbcType="VARCHAR" />
+    <id column="UNIQUEID" property="uniqueid" jdbcType="VARCHAR" />
+    <result column="SOCIALID" property="socialid" jdbcType="VARCHAR" />
+    <result column="PLATFORMNO" property="platformno" jdbcType="CHAR" />
+    <result column="PROJECTNO" property="projectno" jdbcType="VARCHAR" />
+    <result column="PROJECTTYPE" property="projecttype" jdbcType="CHAR" />
+    <result column="PROJECTNAME" property="projectname" jdbcType="VARCHAR" />
+    <result column="ESTABLISHDATE" property="establishdate" jdbcType="VARCHAR" />
+    <result column="BUSINESSSUM" property="businesssum" jdbcType="DECIMAL" />
+    <result column="CURRENCY" property="currency" jdbcType="VARCHAR" />
+    <result column="PUTOUTDATE" property="putoutdate" jdbcType="VARCHAR" />
+    <result column="MATURITYDATE" property="maturitydate" jdbcType="VARCHAR" />
+    <result column="LOANTERM" property="loanterm" jdbcType="DECIMAL" />
+    <result column="LOANRATE" property="loanrate" jdbcType="DECIMAL" />
+    <result column="FEERATE" property="feerate" jdbcType="DECIMAL" />
+    <result column="PLAFORMAMT" property="plaformamt" jdbcType="DECIMAL" />
+    <result column="OTHERFEEAMT" property="otherfeeamt" jdbcType="DECIMAL" />
+    <result column="GUARANTEE" property="guarantee" jdbcType="VARCHAR" />
+    <result column="LOANPERIOD" property="loanperiod" jdbcType="DECIMAL" />
+    <result column="VOUCHTYPE" property="vouchtype" jdbcType="VARCHAR" />
+    <result column="GUARANTEECOMPANY" property="guaranteecompany" jdbcType="VARCHAR" />
+    <result column="PAYSCHEDULE" property="payschedule" jdbcType="VARCHAR" />
+    <result column="ACTUALPAYRECORD" property="actualpayrecord" jdbcType="VARCHAR" />
+    <result column="ACTUALPAYCORPUSAMT" property="actualpaycorpusamt" jdbcType="DECIMAL" />
+    <result column="ACTUALPAYINTEAMT" property="actualpayinteamt" jdbcType="DECIMAL" />
+    <result column="SURPLUSPAYINTEAMT" property="surpluspayinteamt" jdbcType="DECIMAL" />
+    <result column="SURPLUSAYINTEAMT" property="surplusayinteamt" jdbcType="DECIMAL" />
+    <result column="TRANSFERFLAG" property="transferflag" jdbcType="CHAR" />
+    <result column="PROJECCTSTATUS" property="projecctstatus" jdbcType="VARCHAR" />
+    <result column="OVERDUEREASON" property="overduereason" jdbcType="VARCHAR" />
+    <result column="OVERDUENUM" property="overduenum" jdbcType="DECIMAL" />
+    <result column="REPAYMENTMETHOD" property="repaymentmethod" jdbcType="VARCHAR" />
+    <result column="LOANUSAGE" property="loanusage" jdbcType="VARCHAR" />
+    <result column="INVESTORNUM" property="investornum" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <sql id="baseColumnList" >
+    INPUTDATE, UNIQUEID, SOCIALID, PLATFORMNO, PROJECTNO, PROJECTTYPE, PROJECTNAME, ESTABLISHDATE, 
+    BUSINESSSUM, CURRENCY, PUTOUTDATE, MATURITYDATE, LOANTERM, LOANRATE, FEERATE, PLAFORMAMT, 
+    OTHERFEEAMT, GUARANTEE, LOANPERIOD, VOUCHTYPE, GUARANTEECOMPANY, PAYSCHEDULE, ACTUALPAYRECORD, 
+    ACTUALPAYCORPUSAMT, ACTUALPAYINTEAMT, SURPLUSPAYINTEAMT, SURPLUSAYINTEAMT, TRANSFERFLAG, 
+    PROJECCTSTATUS, OVERDUEREASON, OVERDUENUM, REPAYMENTMETHOD, LOANUSAGE, INVESTORNUM
+  </sql>
+
+  <sql id="viewColumnList" >
+    UNIQUEID, SOCIALID, PLATFORMNO, PROJECTNO, PROJECTTYPE, PROJECTNAME, ESTABLISHDATE,
+    BUSINESSSUM, CURRENCY, PUTOUTDATE, MATURITYDATE, LOANTERM, LOANRATE, FEERATE, PLAFORMAMT,
+    OTHERFEEAMT, GUARANTEE, LOANPERIOD, VOUCHTYPE, GUARANTEECOMPANY, PAYSCHEDULE, ACTUALPAYRECORD,
+    ACTUALPAYCORPUSAMT, ACTUALPAYINTEAMT, SURPLUSPAYINTEAMT, SURPLUSAYINTEAMT, TRANSFERFLAG,
+    PROJECCTSTATUS, OVERDUEREASON, OVERDUENUM, REPAYMENTMETHOD, LOANUSAGE, INVESTORNUM
+  </sql>
+
+  <insert id="insertAllByInputdate" >
+
+    INSERT INTO EXPORT_BUSINESS_ZHAIQ (
+      <include refid="baseColumnList"/>
+    )
+    SELECT #{inputdate} as INPUTDATE
+      <include refid="viewColumnList"/>
+    FROM V_EXPORTBUSINESSZHAIQ
+    WHERE ESTABLISHDATE = #{inputdate}
+    OR PROJECTNO = (select al.clearanceacctno from acct_back_bill abb,acct_loan al where al.serialno = abb.objectno and abb.actualpaydate= #{inputdate})
+
+  </insert>
+
+  <select id="selectAllByInputdate" parameterType="java.lang.String" resultType = "com.brh.p2p.nifa.data.entity.ExportBusinessProjEntity">
+    select
+    <include refid="baseColumnList" />
+    from EXPORT_BUSINESS_ZHAIQ
+    where INPUTDATE = #{inputdate}
+  </select>
+
+  <delete id="deleteAllByInpudate" parameterType="java.lang.String" >
+
+    delete from EXPORT_BUSINESS_ZHAIQ ebz where ebz.inputdate = #{inputdate,jdbcType=VARCHAR}
+
+  </delete>
+
+  <insert id="insert" parameterType="com.brh.p2p.nifa.data.entity.ExportBusinessProjEntity" >
+    insert into EXPORT_BUSINESS_ZHAIQ (INPUTDATE, UNIQUEID, SOCIALID, 
+      PLATFORMNO, PROJECTNO, PROJECTTYPE, 
+      PROJECTNAME, ESTABLISHDATE, BUSINESSSUM, 
+      CURRENCY, PUTOUTDATE, MATURITYDATE, 
+      LOANTERM, LOANRATE, FEERATE, 
+      PLAFORMAMT, OTHERFEEAMT, GUARANTEE, 
+      LOANPERIOD, VOUCHTYPE, GUARANTEECOMPANY, 
+      PAYSCHEDULE, ACTUALPAYRECORD, ACTUALPAYCORPUSAMT, 
+      ACTUALPAYINTEAMT, SURPLUSPAYINTEAMT, SURPLUSAYINTEAMT, 
+      TRANSFERFLAG, PROJECCTSTATUS, OVERDUEREASON, 
+      OVERDUENUM, REPAYMENTMETHOD, LOANUSAGE, 
+      INVESTORNUM)
+    values (#{inputdate,jdbcType=VARCHAR}, #{uniqueid,jdbcType=VARCHAR}, #{socialid,jdbcType=VARCHAR}, 
+      #{platformno,jdbcType=CHAR}, #{projectno,jdbcType=VARCHAR}, #{projecttype,jdbcType=CHAR}, 
+      #{projectname,jdbcType=VARCHAR}, #{establishdate,jdbcType=VARCHAR}, #{businesssum,jdbcType=DECIMAL}, 
+      #{currency,jdbcType=VARCHAR}, #{putoutdate,jdbcType=VARCHAR}, #{maturitydate,jdbcType=VARCHAR}, 
+      #{loanterm,jdbcType=DECIMAL}, #{loanrate,jdbcType=DECIMAL}, #{feerate,jdbcType=DECIMAL}, 
+      #{plaformamt,jdbcType=DECIMAL}, #{otherfeeamt,jdbcType=DECIMAL}, #{guarantee,jdbcType=VARCHAR}, 
+      #{loanperiod,jdbcType=DECIMAL}, #{vouchtype,jdbcType=VARCHAR}, #{guaranteecompany,jdbcType=VARCHAR}, 
+      #{payschedule,jdbcType=VARCHAR}, #{actualpayrecord,jdbcType=VARCHAR}, #{actualpaycorpusamt,jdbcType=DECIMAL}, 
+      #{actualpayinteamt,jdbcType=DECIMAL}, #{surpluspayinteamt,jdbcType=DECIMAL}, #{surplusayinteamt,jdbcType=DECIMAL}, 
+      #{transferflag,jdbcType=CHAR}, #{projecctstatus,jdbcType=VARCHAR}, #{overduereason,jdbcType=VARCHAR}, 
+      #{overduenum,jdbcType=DECIMAL}, #{repaymentmethod,jdbcType=VARCHAR}, #{loanusage,jdbcType=VARCHAR}, 
+      #{investornum,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.brh.p2p.nifa.data.entity.ExportBusinessProjEntity" >
+    insert into EXPORT_BUSINESS_ZHAIQ
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="inputdate != null" >
+        INPUTDATE,
+      </if>
+      <if test="uniqueid != null" >
+        UNIQUEID,
+      </if>
+      <if test="socialid != null" >
+        SOCIALID,
+      </if>
+      <if test="platformno != null" >
+        PLATFORMNO,
+      </if>
+      <if test="projectno != null" >
+        PROJECTNO,
+      </if>
+      <if test="projecttype != null" >
+        PROJECTTYPE,
+      </if>
+      <if test="projectname != null" >
+        PROJECTNAME,
+      </if>
+      <if test="establishdate != null" >
+        ESTABLISHDATE,
+      </if>
+      <if test="businesssum != null" >
+        BUSINESSSUM,
+      </if>
+      <if test="currency != null" >
+        CURRENCY,
+      </if>
+      <if test="putoutdate != null" >
+        PUTOUTDATE,
+      </if>
+      <if test="maturitydate != null" >
+        MATURITYDATE,
+      </if>
+      <if test="loanterm != null" >
+        LOANTERM,
+      </if>
+      <if test="loanrate != null" >
+        LOANRATE,
+      </if>
+      <if test="feerate != null" >
+        FEERATE,
+      </if>
+      <if test="plaformamt != null" >
+        PLAFORMAMT,
+      </if>
+      <if test="otherfeeamt != null" >
+        OTHERFEEAMT,
+      </if>
+      <if test="guarantee != null" >
+        GUARANTEE,
+      </if>
+      <if test="loanperiod != null" >
+        LOANPERIOD,
+      </if>
+      <if test="vouchtype != null" >
+        VOUCHTYPE,
+      </if>
+      <if test="guaranteecompany != null" >
+        GUARANTEECOMPANY,
+      </if>
+      <if test="payschedule != null" >
+        PAYSCHEDULE,
+      </if>
+      <if test="actualpayrecord != null" >
+        ACTUALPAYRECORD,
+      </if>
+      <if test="actualpaycorpusamt != null" >
+        ACTUALPAYCORPUSAMT,
+      </if>
+      <if test="actualpayinteamt != null" >
+        ACTUALPAYINTEAMT,
+      </if>
+      <if test="surpluspayinteamt != null" >
+        SURPLUSPAYINTEAMT,
+      </if>
+      <if test="surplusayinteamt != null" >
+        SURPLUSAYINTEAMT,
+      </if>
+      <if test="transferflag != null" >
+        TRANSFERFLAG,
+      </if>
+      <if test="projecctstatus != null" >
+        PROJECCTSTATUS,
+      </if>
+      <if test="overduereason != null" >
+        OVERDUEREASON,
+      </if>
+      <if test="overduenum != null" >
+        OVERDUENUM,
+      </if>
+      <if test="repaymentmethod != null" >
+        REPAYMENTMETHOD,
+      </if>
+      <if test="loanusage != null" >
+        LOANUSAGE,
+      </if>
+      <if test="investornum != null" >
+        INVESTORNUM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="inputdate != null" >
+        #{inputdate,jdbcType=VARCHAR},
+      </if>
+      <if test="uniqueid != null" >
+        #{uniqueid,jdbcType=VARCHAR},
+      </if>
+      <if test="socialid != null" >
+        #{socialid,jdbcType=VARCHAR},
+      </if>
+      <if test="platformno != null" >
+        #{platformno,jdbcType=CHAR},
+      </if>
+      <if test="projectno != null" >
+        #{projectno,jdbcType=VARCHAR},
+      </if>
+      <if test="projecttype != null" >
+        #{projecttype,jdbcType=CHAR},
+      </if>
+      <if test="projectname != null" >
+        #{projectname,jdbcType=VARCHAR},
+      </if>
+      <if test="establishdate != null" >
+        #{establishdate,jdbcType=VARCHAR},
+      </if>
+      <if test="businesssum != null" >
+        #{businesssum,jdbcType=DECIMAL},
+      </if>
+      <if test="currency != null" >
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="putoutdate != null" >
+        #{putoutdate,jdbcType=VARCHAR},
+      </if>
+      <if test="maturitydate != null" >
+        #{maturitydate,jdbcType=VARCHAR},
+      </if>
+      <if test="loanterm != null" >
+        #{loanterm,jdbcType=DECIMAL},
+      </if>
+      <if test="loanrate != null" >
+        #{loanrate,jdbcType=DECIMAL},
+      </if>
+      <if test="feerate != null" >
+        #{feerate,jdbcType=DECIMAL},
+      </if>
+      <if test="plaformamt != null" >
+        #{plaformamt,jdbcType=DECIMAL},
+      </if>
+      <if test="otherfeeamt != null" >
+        #{otherfeeamt,jdbcType=DECIMAL},
+      </if>
+      <if test="guarantee != null" >
+        #{guarantee,jdbcType=VARCHAR},
+      </if>
+      <if test="loanperiod != null" >
+        #{loanperiod,jdbcType=DECIMAL},
+      </if>
+      <if test="vouchtype != null" >
+        #{vouchtype,jdbcType=VARCHAR},
+      </if>
+      <if test="guaranteecompany != null" >
+        #{guaranteecompany,jdbcType=VARCHAR},
+      </if>
+      <if test="payschedule != null" >
+        #{payschedule,jdbcType=VARCHAR},
+      </if>
+      <if test="actualpayrecord != null" >
+        #{actualpayrecord,jdbcType=VARCHAR},
+      </if>
+      <if test="actualpaycorpusamt != null" >
+        #{actualpaycorpusamt,jdbcType=DECIMAL},
+      </if>
+      <if test="actualpayinteamt != null" >
+        #{actualpayinteamt,jdbcType=DECIMAL},
+      </if>
+      <if test="surpluspayinteamt != null" >
+        #{surpluspayinteamt,jdbcType=DECIMAL},
+      </if>
+      <if test="surplusayinteamt != null" >
+        #{surplusayinteamt,jdbcType=DECIMAL},
+      </if>
+      <if test="transferflag != null" >
+        #{transferflag,jdbcType=CHAR},
+      </if>
+      <if test="projecctstatus != null" >
+        #{projecctstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="overduereason != null" >
+        #{overduereason,jdbcType=VARCHAR},
+      </if>
+      <if test="overduenum != null" >
+        #{overduenum,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentmethod != null" >
+        #{repaymentmethod,jdbcType=VARCHAR},
+      </if>
+      <if test="loanusage != null" >
+        #{loanusage,jdbcType=VARCHAR},
+      </if>
+      <if test="investornum != null" >
+        #{investornum,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.brh.p2p.nifa.data.entity.ExportBusinessProjEntity" >
+    update EXPORT_BUSINESS_ZHAIQ
+    <set >
+      <if test="socialid != null" >
+        SOCIALID = #{socialid,jdbcType=VARCHAR},
+      </if>
+      <if test="platformno != null" >
+        PLATFORMNO = #{platformno,jdbcType=CHAR},
+      </if>
+      <if test="projectno != null" >
+        PROJECTNO = #{projectno,jdbcType=VARCHAR},
+      </if>
+      <if test="projecttype != null" >
+        PROJECTTYPE = #{projecttype,jdbcType=CHAR},
+      </if>
+      <if test="projectname != null" >
+        PROJECTNAME = #{projectname,jdbcType=VARCHAR},
+      </if>
+      <if test="establishdate != null" >
+        ESTABLISHDATE = #{establishdate,jdbcType=VARCHAR},
+      </if>
+      <if test="businesssum != null" >
+        BUSINESSSUM = #{businesssum,jdbcType=DECIMAL},
+      </if>
+      <if test="currency != null" >
+        CURRENCY = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="putoutdate != null" >
+        PUTOUTDATE = #{putoutdate,jdbcType=VARCHAR},
+      </if>
+      <if test="maturitydate != null" >
+        MATURITYDATE = #{maturitydate,jdbcType=VARCHAR},
+      </if>
+      <if test="loanterm != null" >
+        LOANTERM = #{loanterm,jdbcType=DECIMAL},
+      </if>
+      <if test="loanrate != null" >
+        LOANRATE = #{loanrate,jdbcType=DECIMAL},
+      </if>
+      <if test="feerate != null" >
+        FEERATE = #{feerate,jdbcType=DECIMAL},
+      </if>
+      <if test="plaformamt != null" >
+        PLAFORMAMT = #{plaformamt,jdbcType=DECIMAL},
+      </if>
+      <if test="otherfeeamt != null" >
+        OTHERFEEAMT = #{otherfeeamt,jdbcType=DECIMAL},
+      </if>
+      <if test="guarantee != null" >
+        GUARANTEE = #{guarantee,jdbcType=VARCHAR},
+      </if>
+      <if test="loanperiod != null" >
+        LOANPERIOD = #{loanperiod,jdbcType=DECIMAL},
+      </if>
+      <if test="vouchtype != null" >
+        VOUCHTYPE = #{vouchtype,jdbcType=VARCHAR},
+      </if>
+      <if test="guaranteecompany != null" >
+        GUARANTEECOMPANY = #{guaranteecompany,jdbcType=VARCHAR},
+      </if>
+      <if test="payschedule != null" >
+        PAYSCHEDULE = #{payschedule,jdbcType=VARCHAR},
+      </if>
+      <if test="actualpayrecord != null" >
+        ACTUALPAYRECORD = #{actualpayrecord,jdbcType=VARCHAR},
+      </if>
+      <if test="actualpaycorpusamt != null" >
+        ACTUALPAYCORPUSAMT = #{actualpaycorpusamt,jdbcType=DECIMAL},
+      </if>
+      <if test="actualpayinteamt != null" >
+        ACTUALPAYINTEAMT = #{actualpayinteamt,jdbcType=DECIMAL},
+      </if>
+      <if test="surpluspayinteamt != null" >
+        SURPLUSPAYINTEAMT = #{surpluspayinteamt,jdbcType=DECIMAL},
+      </if>
+      <if test="surplusayinteamt != null" >
+        SURPLUSAYINTEAMT = #{surplusayinteamt,jdbcType=DECIMAL},
+      </if>
+      <if test="transferflag != null" >
+        TRANSFERFLAG = #{transferflag,jdbcType=CHAR},
+      </if>
+      <if test="projecctstatus != null" >
+        PROJECCTSTATUS = #{projecctstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="overduereason != null" >
+        OVERDUEREASON = #{overduereason,jdbcType=VARCHAR},
+      </if>
+      <if test="overduenum != null" >
+        OVERDUENUM = #{overduenum,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentmethod != null" >
+        REPAYMENTMETHOD = #{repaymentmethod,jdbcType=VARCHAR},
+      </if>
+      <if test="loanusage != null" >
+        LOANUSAGE = #{loanusage,jdbcType=VARCHAR},
+      </if>
+      <if test="investornum != null" >
+        INVESTORNUM = #{investornum,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where INPUTDATE = #{inputdate,jdbcType=VARCHAR}
+      and UNIQUEID = #{uniqueid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.brh.p2p.nifa.data.entity.ExportBusinessProjEntity" >
+    update EXPORT_BUSINESS_ZHAIQ
+    set SOCIALID = #{socialid,jdbcType=VARCHAR},
+      PLATFORMNO = #{platformno,jdbcType=CHAR},
+      PROJECTNO = #{projectno,jdbcType=VARCHAR},
+      PROJECTTYPE = #{projecttype,jdbcType=CHAR},
+      PROJECTNAME = #{projectname,jdbcType=VARCHAR},
+      ESTABLISHDATE = #{establishdate,jdbcType=VARCHAR},
+      BUSINESSSUM = #{businesssum,jdbcType=DECIMAL},
+      CURRENCY = #{currency,jdbcType=VARCHAR},
+      PUTOUTDATE = #{putoutdate,jdbcType=VARCHAR},
+      MATURITYDATE = #{maturitydate,jdbcType=VARCHAR},
+      LOANTERM = #{loanterm,jdbcType=DECIMAL},
+      LOANRATE = #{loanrate,jdbcType=DECIMAL},
+      FEERATE = #{feerate,jdbcType=DECIMAL},
+      PLAFORMAMT = #{plaformamt,jdbcType=DECIMAL},
+      OTHERFEEAMT = #{otherfeeamt,jdbcType=DECIMAL},
+      GUARANTEE = #{guarantee,jdbcType=VARCHAR},
+      LOANPERIOD = #{loanperiod,jdbcType=DECIMAL},
+      VOUCHTYPE = #{vouchtype,jdbcType=VARCHAR},
+      GUARANTEECOMPANY = #{guaranteecompany,jdbcType=VARCHAR},
+      PAYSCHEDULE = #{payschedule,jdbcType=VARCHAR},
+      ACTUALPAYRECORD = #{actualpayrecord,jdbcType=VARCHAR},
+      ACTUALPAYCORPUSAMT = #{actualpaycorpusamt,jdbcType=DECIMAL},
+      ACTUALPAYINTEAMT = #{actualpayinteamt,jdbcType=DECIMAL},
+      SURPLUSPAYINTEAMT = #{surpluspayinteamt,jdbcType=DECIMAL},
+      SURPLUSAYINTEAMT = #{surplusayinteamt,jdbcType=DECIMAL},
+      TRANSFERFLAG = #{transferflag,jdbcType=CHAR},
+      PROJECCTSTATUS = #{projecctstatus,jdbcType=VARCHAR},
+      OVERDUEREASON = #{overduereason,jdbcType=VARCHAR},
+      OVERDUENUM = #{overduenum,jdbcType=DECIMAL},
+      REPAYMENTMETHOD = #{repaymentmethod,jdbcType=VARCHAR},
+      LOANUSAGE = #{loanusage,jdbcType=VARCHAR},
+      INVESTORNUM = #{investornum,jdbcType=DECIMAL}
+    where INPUTDATE = #{inputdate,jdbcType=VARCHAR}
+      and UNIQUEID = #{uniqueid,jdbcType=VARCHAR}
+  </update>
+</mapper>

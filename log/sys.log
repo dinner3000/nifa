@@ -1,3 +1,0 @@
-2018-05-07 14:04:57,901 INFO (StartupInfoLogger.java:48)- Starting NifaApplication v0.0.1 on Gary-HP with PID 17612 (D:\Development\java-project\nifa\nifa-sftp-service.jar started by Gary in D:\Development\java-project\nifa)
-2018-05-07 14:04:57,922 INFO (SpringApplication.java:597)- The following profiles are active: dev
-2018-05-07 14:05:03,132 INFO (StartupInfoLogger.java:57)- Started NifaApplication in 6.529 seconds (JVM running for 7.522)

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.brh.p2p.nifa.data.repository.ExportBusinessBorMapper" >
+  <resultMap id="BaseResultMap" type="com.brh.p2p.nifa.data.entity.ExportBusinessBorEntity" >
+    <id column="INPUTDATE" property="inputdate" jdbcType="VARCHAR" />
+    <id column="UNIQUEID" property="uniqueid" jdbcType="VARCHAR" />
+    <id column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="USERTYPE" property="usertype" jdbcType="VARCHAR" />
+    <result column="CERTTYPE" property="certtype" jdbcType="VARCHAR" />
+    <result column="CERTID" property="certid" jdbcType="VARCHAR" />
+    <result column="SEXUAL" property="sexual" jdbcType="CHAR" />
+    <result column="INCOMELEVEL" property="incomelevel" jdbcType="VARCHAR" />
+    <result column="INCOMESOURCE" property="incomesource" jdbcType="VARCHAR" />
+    <result column="POSITION" property="position" jdbcType="VARCHAR" />
+    <result column="CITY" property="city" jdbcType="VARCHAR" />
+    <result column="PAYMENTFUND" property="paymentfund" jdbcType="DECIMAL" />
+    <result column="REGISTFUND" property="registfund" jdbcType="DECIMAL" />
+    <result column="GUILDSEC" property="guildsec" jdbcType="VARCHAR" />
+    <result column="FOUNDTIME" property="foundtime" jdbcType="VARCHAR" />
+    <result column="BANKNAME" property="bankname" jdbcType="VARCHAR" />
+    <result column="BANKAREA" property="bankarea" jdbcType="VARCHAR" />
+    <result column="CREDITRATING" property="creditrating" jdbcType="VARCHAR" />
+    <result column="BORROWNUM" property="borrownum" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    INPUTDATE, UNIQUEID, USERID, USERTYPE, CERTTYPE, CERTID, SEXUAL, INCOMELEVEL, INCOMESOURCE, 
+    POSITION, CITY, PAYMENTFUND, REGISTFUND, GUILDSEC, FOUNDTIME, BANKNAME, BANKAREA, 
+    CREDITRATING, BORROWNUM
+  </sql>
+
+  <insert id="insert" parameterType="com.brh.p2p.nifa.data.entity.ExportBusinessBorEntity" >
+    insert into EXPORT_BUSINESS_ZHAIQ_BOR (
+      INPUTDATE, UNIQUEID, USERID,
+      USERTYPE, CERTTYPE, CERTID, 
+      SEXUAL, INCOMELEVEL, INCOMESOURCE, 
+      POSITION, CITY, PAYMENTFUND, 
+      REGISTFUND, GUILDSEC, FOUNDTIME, 
+      BANKNAME, BANKAREA, CREDITRATING, 
+      BORROWNUM)
+    values (#{inputdate,jdbcType=VARCHAR}, #{uniqueid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{usertype,jdbcType=VARCHAR}, #{certtype,jdbcType=VARCHAR}, #{certid,jdbcType=VARCHAR}, 
+      #{sexual,jdbcType=CHAR}, #{incomelevel,jdbcType=VARCHAR}, #{incomesource,jdbcType=VARCHAR}, 
+      #{position,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{paymentfund,jdbcType=DECIMAL}, 
+      #{registfund,jdbcType=DECIMAL}, #{guildsec,jdbcType=VARCHAR}, #{foundtime,jdbcType=VARCHAR}, 
+      #{bankname,jdbcType=VARCHAR}, #{bankarea,jdbcType=VARCHAR}, #{creditrating,jdbcType=VARCHAR}, 
+      #{borrownum,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.brh.p2p.nifa.data.entity.ExportBusinessBorEntity" >
+    insert into EXPORT_BUSINESS_ZHAIQ_BOR
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="inputdate != null" >
+        INPUTDATE,
+      </if>
+      <if test="uniqueid != null" >
+        UNIQUEID,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="usertype != null" >
+        USERTYPE,
+      </if>
+      <if test="certtype != null" >
+        CERTTYPE,
+      </if>
+      <if test="certid != null" >
+        CERTID,
+      </if>
+      <if test="sexual != null" >
+        SEXUAL,
+      </if>
+      <if test="incomelevel != null" >
+        INCOMELEVEL,
+      </if>
+      <if test="incomesource != null" >
+        INCOMESOURCE,
+      </if>
+      <if test="position != null" >
+        POSITION,
+      </if>
+      <if test="city != null" >
+        CITY,
+      </if>
+      <if test="paymentfund != null" >
+        PAYMENTFUND,
+      </if>
+      <if test="registfund != null" >
+        REGISTFUND,
+      </if>
+      <if test="guildsec != null" >
+        GUILDSEC,
+      </if>
+      <if test="foundtime != null" >
+        FOUNDTIME,
+      </if>
+      <if test="bankname != null" >
+        BANKNAME,
+      </if>
+      <if test="bankarea != null" >
+        BANKAREA,
+      </if>
+      <if test="creditrating != null" >
+        CREDITRATING,
+      </if>
+      <if test="borrownum != null" >
+        BORROWNUM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="inputdate != null" >
+        #{inputdate,jdbcType=VARCHAR},
+      </if>
+      <if test="uniqueid != null" >
+        #{uniqueid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="usertype != null" >
+        #{usertype,jdbcType=VARCHAR},
+      </if>
+      <if test="certtype != null" >
+        #{certtype,jdbcType=VARCHAR},
+      </if>
+      <if test="certid != null" >
+        #{certid,jdbcType=VARCHAR},
+      </if>
+      <if test="sexual != null" >
+        #{sexual,jdbcType=CHAR},
+      </if>
+      <if test="incomelevel != null" >
+        #{incomelevel,jdbcType=VARCHAR},
+      </if>
+      <if test="incomesource != null" >
+        #{incomesource,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentfund != null" >
+        #{paymentfund,jdbcType=DECIMAL},
+      </if>
+      <if test="registfund != null" >
+        #{registfund,jdbcType=DECIMAL},
+      </if>
+      <if test="guildsec != null" >
+        #{guildsec,jdbcType=VARCHAR},
+      </if>
+      <if test="foundtime != null" >
+        #{foundtime,jdbcType=VARCHAR},
+      </if>
+      <if test="bankname != null" >
+        #{bankname,jdbcType=VARCHAR},
+      </if>
+      <if test="bankarea != null" >
+        #{bankarea,jdbcType=VARCHAR},
+      </if>
+      <if test="creditrating != null" >
+        #{creditrating,jdbcType=VARCHAR},
+      </if>
+      <if test="borrownum != null" >
+        #{borrownum,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.brh.p2p.nifa.data.entity.ExportBusinessBorEntity" >
+    update EXPORT_BUSINESS_ZHAIQ_BOR
+    <set >
+      <if test="usertype != null" >
+        USERTYPE = #{usertype,jdbcType=VARCHAR},
+      </if>
+      <if test="certtype != null" >
+        CERTTYPE = #{certtype,jdbcType=VARCHAR},
+      </if>
+      <if test="certid != null" >
+        CERTID = #{certid,jdbcType=VARCHAR},
+      </if>
+      <if test="sexual != null" >
+        SEXUAL = #{sexual,jdbcType=CHAR},
+      </if>
+      <if test="incomelevel != null" >
+        INCOMELEVEL = #{incomelevel,jdbcType=VARCHAR},
+      </if>
+      <if test="incomesource != null" >
+        INCOMESOURCE = #{incomesource,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        POSITION = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        CITY = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentfund != null" >
+        PAYMENTFUND = #{paymentfund,jdbcType=DECIMAL},
+      </if>
+      <if test="registfund != null" >
+        REGISTFUND = #{registfund,jdbcType=DECIMAL},
+      </if>
+      <if test="guildsec != null" >
+        GUILDSEC = #{guildsec,jdbcType=VARCHAR},
+      </if>
+      <if test="foundtime != null" >
+        FOUNDTIME = #{foundtime,jdbcType=VARCHAR},
+      </if>
+      <if test="bankname != null" >
+        BANKNAME = #{bankname,jdbcType=VARCHAR},
+      </if>
+      <if test="bankarea != null" >
+        BANKAREA = #{bankarea,jdbcType=VARCHAR},
+      </if>
+      <if test="creditrating != null" >
+        CREDITRATING = #{creditrating,jdbcType=VARCHAR},
+      </if>
+      <if test="borrownum != null" >
+        BORROWNUM = #{borrownum,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where INPUTDATE = #{inputdate,jdbcType=VARCHAR}
+      and UNIQUEID = #{uniqueid,jdbcType=VARCHAR}
+      and USERID = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.brh.p2p.nifa.data.entity.ExportBusinessBorEntity" >
+    update EXPORT_BUSINESS_ZHAIQ_BOR
+    set USERTYPE = #{usertype,jdbcType=VARCHAR},
+      CERTTYPE = #{certtype,jdbcType=VARCHAR},
+      CERTID = #{certid,jdbcType=VARCHAR},
+      SEXUAL = #{sexual,jdbcType=CHAR},
+      INCOMELEVEL = #{incomelevel,jdbcType=VARCHAR},
+      INCOMESOURCE = #{incomesource,jdbcType=VARCHAR},
+      POSITION = #{position,jdbcType=VARCHAR},
+      CITY = #{city,jdbcType=VARCHAR},
+      PAYMENTFUND = #{paymentfund,jdbcType=DECIMAL},
+      REGISTFUND = #{registfund,jdbcType=DECIMAL},
+      GUILDSEC = #{guildsec,jdbcType=VARCHAR},
+      FOUNDTIME = #{foundtime,jdbcType=VARCHAR},
+      BANKNAME = #{bankname,jdbcType=VARCHAR},
+      BANKAREA = #{bankarea,jdbcType=VARCHAR},
+      CREDITRATING = #{creditrating,jdbcType=VARCHAR},
+      BORROWNUM = #{borrownum,jdbcType=DECIMAL}
+    where INPUTDATE = #{inputdate,jdbcType=VARCHAR}
+      and UNIQUEID = #{uniqueid,jdbcType=VARCHAR}
+      and USERID = #{userid,jdbcType=VARCHAR}
+  </update>
+</mapper>

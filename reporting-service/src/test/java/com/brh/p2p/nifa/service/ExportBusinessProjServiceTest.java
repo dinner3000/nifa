@@ -2,8 +2,10 @@ package com.brh.p2p.nifa.service;
 
 import com.brh.p2p.nifa.MainEntry;
 import com.brh.p2p.nifa.data.entity.ExportBusinessProjEntity;
-import org.junit.Test;
+import com.brh.p2p.nifa.service.ExportBusinessProjService;
+import org.junit.*;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,30 +20,44 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = MainEntry.class)
 @WebAppConfiguration
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ExportBusinessProjServiceTest {
-
-    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private ExportBusinessProjService exportBusinessProjService;
 
-    @Test
-    public void findAllDataByInputdate() throws Exception {
-        List<ExportBusinessProjEntity> records = exportBusinessProjService.findAllDataByInputdate("2018-05-10");
-        logger.info("{} records returned", records.size());
+    @Before
+    public void setUp() throws Exception {
+        exportBusinessProjService.clearAll();
     }
 
-    @Test
-    public void generateDataByInputdate() throws Exception {
-//        exportBusinessProjService.generateDataByInputdate("2018-05-10");
+    @After
+    public void tearDown() throws Exception {
+        exportBusinessProjService.clearAll();
     }
 
-    @Test
-    public void removeDataByInputdate() throws Exception {
-    }
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Test
-    public void regenerateDataByInputdate() throws Exception {
+    public void t2generateDataByInputdate() throws Exception {
+        String date = "2018-05-09";
+        List<ExportBusinessProjEntity> records;
+        long n = 0;
+
+        exportBusinessProjService.generateAllByInputdate(date);
+
+        records = exportBusinessProjService.findAllDataByInputdate(date);
+        Assert.assertTrue(records.size() > 0);
+        n = records.size();
+
+        exportBusinessProjService.removeAllByInputdate(date);
+        records = exportBusinessProjService.findAllDataByInputdate(date);
+        Assert.assertTrue(records.size() <= 0);
+
+        exportBusinessProjService.regenerateAllByInputdate(date);
+        records = exportBusinessProjService.findAllDataByInputdate(date);
+        Assert.assertTrue(records.size() == n);
+
     }
 
 }

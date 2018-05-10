@@ -9,10 +9,12 @@ public interface ExportBusinessProjService {
 //    List<ExportBusinessProjEntity> findAllDataByInputdate(int pageNum, int pageSize, String inputdate);
     List<ExportBusinessProjEntity> findAllDataByInputdate(String inputdate);
 
-    void generateDataByInputdate(String inputdate);
+    void generateAllByInputdate(String inputdate);
 
-    void removeDataByInputdate(String inputdate);
+    void removeAllByInputdate(String inputdate);
 
-    void regenerateDataByInputdate(String inputdate);
+    void clearAll();
+
+    void regenerateAllByInputdate(String inputdate);
 
 }

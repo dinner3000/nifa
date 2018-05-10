@@ -39,7 +39,8 @@
   </resultMap>
 
   <sql id="baseColumnList" >
-    INPUTDATE, UNIQUEID, SOCIALID, PLATFORMNO, PROJECTNO, PROJECTTYPE, PROJECTNAME, ESTABLISHDATE, 
+    INPUTDATE,
+    UNIQUEID, SOCIALID, PLATFORMNO, PROJECTNO, PROJECTTYPE, PROJECTNAME, ESTABLISHDATE,
     BUSINESSSUM, CURRENCY, PUTOUTDATE, MATURITYDATE, LOANTERM, LOANRATE, FEERATE, PLAFORMAMT, 
     OTHERFEEAMT, GUARANTEE, LOANPERIOD, VOUCHTYPE, GUARANTEECOMPANY, PAYSCHEDULE, ACTUALPAYRECORD, 
     ACTUALPAYCORPUSAMT, ACTUALPAYINTEAMT, SURPLUSPAYINTEAMT, SURPLUSAYINTEAMT, TRANSFERFLAG, 
@@ -59,11 +60,11 @@
     INSERT INTO EXPORT_BUSINESS_ZHAIQ (
       <include refid="baseColumnList"/>
     )
-    SELECT #{inputdate} as INPUTDATE
+    SELECT #{inputdate} as INPUTDATE,
       <include refid="viewColumnList"/>
     FROM V_EXPORTBUSINESSZHAIQ
     WHERE ESTABLISHDATE = #{inputdate}
-    OR PROJECTNO = (select al.clearanceacctno from acct_back_bill abb,acct_loan al where al.serialno = abb.objectno and abb.actualpaydate= #{inputdate})
+    OR PROJECTNO = (SELECT al.CLEARANCEACCTNO FROM ACCT_BACK_BILL abb,ACCT_LOAN al WHERE al.SERIALNO = abb.OBJECTNO AND abb.ACTUALPAYDATE = #{inputdate})
 
   </insert>
 
@@ -75,9 +76,11 @@
   </select>
 
   <delete id="deleteAllByInpudate" parameterType="java.lang.String" >
-
     delete from EXPORT_BUSINESS_ZHAIQ ebz where ebz.inputdate = #{inputdate,jdbcType=VARCHAR}
+  </delete>
 
+  <delete id="deleteAll">
+    delete from EXPORT_BUSINESS_ZHAIQ
   </delete>
 
   <insert id="insert" parameterType="com.brh.p2p.nifa.data.entity.ExportBusinessProjEntity" >

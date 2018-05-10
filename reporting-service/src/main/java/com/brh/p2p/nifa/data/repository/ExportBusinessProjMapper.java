@@ -15,4 +15,5 @@ public interface ExportBusinessProjMapper {
     List<ExportBusinessProjEntity> selectAllByInputdate(String inputdate);
 
     int deleteAllByInpudate(String inputdate);
+    int deleteAll();
 }

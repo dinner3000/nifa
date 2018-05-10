@@ -1,4 +1,4 @@
-package com.brh.p2p.nifa.service.impl;
+package com.brh.p2p.nifa.service;
 
 import com.brh.p2p.nifa.data.repository.ExportBusinessProjMapper;
 import com.brh.p2p.nifa.data.entity.ExportBusinessProjEntity;
@@ -43,7 +43,9 @@ public class ExportBusinessProjServiceImpl implements ExportBusinessProjService 
     @Override
     public List<ExportBusinessProjEntity> findAllDataByInputdate(String inputdate) {
 
-        return exportBusinessProjMapper.selectAllByInputdate(inputdate);
+        List<ExportBusinessProjEntity> records = exportBusinessProjMapper.selectAllByInputdate(inputdate);
+        logger.debug("{} records returned", records.size());
+        return records;
     }
 
     /**
@@ -53,8 +55,15 @@ public class ExportBusinessProjServiceImpl implements ExportBusinessProjService 
      */
     @Override
     @Transactional
-    public void removeDataByInputdate(String inputdate){
+    public void removeAllByInputdate(String inputdate){
         int n = exportBusinessProjMapper.deleteAllByInpudate(inputdate);
+        logger.debug("{} records deleted", n);
+    }
+
+    @Override
+    @Transactional
+    public void clearAll(){
+        int n = exportBusinessProjMapper.deleteAll();
         logger.debug("{} records deleted", n);
     }
 
@@ -65,7 +74,7 @@ public class ExportBusinessProjServiceImpl implements ExportBusinessProjService 
      */
     @Override
     @Transactional
-    public void generateDataByInputdate(String inputdate){
+    public void generateAllByInputdate(String inputdate){
         int n = exportBusinessProjMapper.insertAllByInputdate(inputdate);
         logger.debug("{} records deleted", n);
     }
@@ -78,9 +87,9 @@ public class ExportBusinessProjServiceImpl implements ExportBusinessProjService 
      */
     @Override
     @Transactional
-    public void regenerateDataByInputdate(String inputdate) {
-        removeDataByInputdate(inputdate);
-        generateDataByInputdate(inputdate);
+    public void regenerateAllByInputdate(String inputdate) {
+        removeAllByInputdate(inputdate);
+        generateAllByInputdate(inputdate);
     }
 
 }

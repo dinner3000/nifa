@@ -1,6 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.brh.p2p.nifa.data.repository.ExportBusinessInvMapper" >
+
+  <sql id="baseColumnList" >
+    INPUTDATE, UNIQUEID, USERID, USERTYPE, CERTTYPE, CERTID, INDUSTRIALTYPE, CITY, GUILDSEC,
+    BUSINESSSUM, INVESTSTATUS
+  </sql>
+
+  <sql id="viewColumnList" >
+    UNIQUEID, USERID, USERTYPE, CERTTYPE, CERTID, INDUSTRIALTYPE, CITY, GUILDSEC,
+    BUSINESSSUM, INVESTSTATUS
+  </sql>
+
+  <insert id="insertAllByInputdate" >
+    INSERT INTO EXPORT_BUSINESS_ZHAIQ_INV (
+    <include refid="baseColumnList"/>
+    )
+    SELECT #{inputdate} as INPUTDATE,
+    <include refid="viewColumnList"/>
+    FROM V_EXPORTBUSINESSZHAIQ_INV
+    WHERE INPUTDATE = #{inputdate}
+  </insert>
+
+  <insert id="insertAll" >
+    INSERT INTO EXPORT_BUSINESS_ZHAIQ_INV (
+    <include refid="baseColumnList"/>
+    )
+    SELECT #{inputdate} as INPUTDATE,
+    <include refid="viewColumnList"/>
+    FROM V_EXPORTBUSINESSZHAIQ_INV
+  </insert>
+
+  <select id="selectAllByInputdate" parameterType="java.lang.String" resultType = "com.brh.p2p.nifa.data.entity.ExportBusinessInvEntity">
+    select
+    <include refid="baseColumnList" />
+    from EXPORT_BUSINESS_ZHAIQ_INV
+    where INPUTDATE = #{inputdate}
+  </select>
+
+  <delete id="deleteAllByInpudate" parameterType="java.lang.String" >
+    delete from EXPORT_BUSINESS_ZHAIQ_INV ebz where ebz.inputdate = #{inputdate,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteAll">
+    delete from EXPORT_BUSINESS_ZHAIQ_INV
+  </delete>
+
   <resultMap id="BaseResultMap" type="com.brh.p2p.nifa.data.entity.ExportBusinessInvEntity" >
     <id column="INPUTDATE" property="inputdate" jdbcType="VARCHAR" />
     <id column="UNIQUEID" property="uniqueid" jdbcType="VARCHAR" />
@@ -14,10 +59,6 @@
     <result column="BUSINESSSUM" property="businesssum" jdbcType="DECIMAL" />
     <result column="INVESTSTATUS" property="investstatus" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    INPUTDATE, UNIQUEID, USERID, USERTYPE, CERTTYPE, CERTID, INDUSTRIALTYPE, CITY, GUILDSEC, 
-    BUSINESSSUM, INVESTSTATUS
-  </sql>
 
   <insert id="insert" parameterType="com.brh.p2p.nifa.data.entity.ExportBusinessInvEntity" >
     insert into EXPORT_BUSINESS_ZHAIQ_INV (INPUTDATE, UNIQUEID, USERID, 

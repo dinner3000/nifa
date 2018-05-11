@@ -4,9 +4,9 @@ import com.brh.p2p.nifa.data.entity.ExportBusinessProjEntity;
 
 import java.util.List;
 
-public interface ExportBusinessProjService {
+public interface ExportBusinessService<T> {
 
-    List<ExportBusinessProjEntity> findAllByInputdate(String inputdate);
+    List<T> findAllByInputdate(String inputdate);
 
     void generateAllByInputdate(String inputdate);
     void generateAll(String inputdate);

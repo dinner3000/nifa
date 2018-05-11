@@ -18,19 +18,19 @@ import java.util.List;
 @SpringBootTest(classes = MainEntry.class)
 @WebAppConfiguration
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class ExportBusinessProjServiceTest {
+public class ExportBusinessServiceTest {
 
     @Autowired
-    private ExportBusinessProjService exportBusinessProjService;
+    private ExportBusinessService exportBusinessService;
 
     @Before
     public void setUp() throws Exception {
-        exportBusinessProjService.clearAll();
+        exportBusinessService.clearAll();
     }
 
     @After
     public void tearDown() throws Exception {
-//        exportBusinessProjService.clearAll();
+//        exportBusinessService.clearAll();
     }
 
     private Logger logger = LoggerFactory.getLogger(getClass());
@@ -41,18 +41,18 @@ public class ExportBusinessProjServiceTest {
         List<ExportBusinessProjEntity> records;
         long n = 0;
 
-        exportBusinessProjService.generateAll(date);
+        exportBusinessService.generateAll(date);
 
-        records = exportBusinessProjService.findAllByInputdate(date);
+        records = exportBusinessService.findAllByInputdate(date);
         Assert.assertTrue(records.size() > 0);
         n = records.size();
 
-        exportBusinessProjService.removeAllByInputdate(date);
-        records = exportBusinessProjService.findAllByInputdate(date);
+        exportBusinessService.removeAllByInputdate(date);
+        records = exportBusinessService.findAllByInputdate(date);
         Assert.assertTrue(records.size() <= 0);
 
-        exportBusinessProjService.regenerateAll(date);
-        records = exportBusinessProjService.findAllByInputdate(date);
+        exportBusinessService.regenerateAll(date);
+        records = exportBusinessService.findAllByInputdate(date);
         Assert.assertTrue(records.size() == n);
 
     }
@@ -63,18 +63,18 @@ public class ExportBusinessProjServiceTest {
 //        List<ExportBusinessProjEntity> records;
 //        long n = 0;
 //
-//        exportBusinessProjService.generateAllByInputdate(date);
+//        exportBusinessService.generateAllByInputdate(date);
 //
-//        records = exportBusinessProjService.findAllByInputdate(date);
+//        records = exportBusinessService.findAllByInputdate(date);
 //        Assert.assertTrue(records.size() > 0);
 //        n = records.size();
 //
-//        exportBusinessProjService.removeAllByInputdate(date);
-//        records = exportBusinessProjService.findAllByInputdate(date);
+//        exportBusinessService.removeAllByInputdate(date);
+//        records = exportBusinessService.findAllByInputdate(date);
 //        Assert.assertTrue(records.size() <= 0);
 //
-//        exportBusinessProjService.regenerateAllByInputdate(date);
-//        records = exportBusinessProjService.findAllByInputdate(date);
+//        exportBusinessService.regenerateAllByInputdate(date);
+//        records = exportBusinessService.findAllByInputdate(date);
 //        Assert.assertTrue(records.size() == n);
 //
 //    }

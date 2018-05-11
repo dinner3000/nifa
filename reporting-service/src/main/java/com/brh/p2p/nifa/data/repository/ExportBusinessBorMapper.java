@@ -10,6 +10,12 @@ public interface ExportBusinessBorMapper {
 //
 //    int insertSelective(ExportBusinessBorEntity record);
 
-    List<ExportBusinessBorEntity> selectAllByInputdate();
+    int insertAllByInputdate(String inputdate);
+    int insertAll(String inputdate);
+
+    List<ExportBusinessBorEntity> selectAllByInputdate(String inputdate);
+
+    int deleteAllByInpudate(String inputdate);
+    int deleteAll();
 
 }

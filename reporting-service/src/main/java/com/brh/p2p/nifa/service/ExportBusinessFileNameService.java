@@ -29,6 +29,6 @@ public class ExportBusinessFileNameService {
     public static String getPackageFileName(Date date){
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        return String.format("%s%s%s%s", socialCreditCode, sdf.format(date.getTime()), category, serial);
+        return String.format("%s%s%s%s.zip", socialCreditCode, sdf.format(date), category, serial);
     }
 }

@@ -1,6 +1,58 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.brh.p2p.nifa.data.repository.ExportBusinessProjMapper" >
+
+  <sql id="baseColumnList" >
+    INPUTDATE,
+    UNIQUEID, SOCIALID, PLATFORMNO, PROJECTNO, PROJECTTYPE, PROJECTNAME, ESTABLISHDATE,
+    BUSINESSSUM, CURRENCY, PUTOUTDATE, MATURITYDATE, LOANTERM, LOANRATE, FEERATE, PLAFORMAMT, 
+    OTHERFEEAMT, GUARANTEE, LOANPERIOD, VOUCHTYPE, GUARANTEECOMPANY, PAYSCHEDULE, ACTUALPAYRECORD, 
+    ACTUALPAYCORPUSAMT, ACTUALPAYINTEAMT, SURPLUSPAYINTEAMT, SURPLUSAYINTEAMT, TRANSFERFLAG, 
+    PROJECCTSTATUS, OVERDUEREASON, OVERDUENUM, REPAYMENTMETHOD, LOANUSAGE, INVESTORNUM
+  </sql>
+
+  <sql id="viewColumnList" >
+    INPUTDATE, UNIQUEID, SOCIALID, PLATFORMNO, PROJECTNO, PROJECTTYPE, PROJECTNAME, ESTABLISHDATE,
+    BUSINESSSUM, CURRENCY, PUTOUTDATE, MATURITYDATE, LOANTERM, LOANRATE, FEERATE, PLAFORMAMT,
+    OTHERFEEAMT, GUARANTEE, LOANPERIOD, VOUCHTYPE, GUARANTEECOMPANY, PAYSCHEDULE, ACTUALPAYRECORD,
+    ACTUALPAYCORPUSAMT, ACTUALPAYINTEAMT, SURPLUSPAYINTEAMT, SURPLUSAYINTEAMT, TRANSFERFLAG,
+    PROJECCTSTATUS, OVERDUEREASON, OVERDUENUM, REPAYMENTMETHOD, LOANUSAGE, INVESTORNUM
+  </sql>
+
+  <insert id="insertAllByInputdate" >
+    INSERT INTO EXPORT_BUSINESS_ZHAIQ (
+      <include refid="baseColumnList"/>
+    )
+    SELECT
+      <include refid="viewColumnList"/>
+    FROM V_EXPORTBUSINESSZHAIQ
+    WHERE INPUTDATE = #{inputdate} OR ACTUALPAYDATE = #{inputdate}
+  </insert>
+
+  <insert id="insertAll" >
+    INSERT INTO EXPORT_BUSINESS_ZHAIQ (
+    <include refid="baseColumnList"/>
+    )
+    SELECT #{inputdate} as INPUTDATE,
+    <include refid="viewColumnList"/>
+    FROM V_EXPORTBUSINESSZHAIQ
+  </insert>
+
+  <select id="selectAllByInputdate" parameterType="java.lang.String" resultType = "com.brh.p2p.nifa.data.entity.ExportBusinessProjEntity">
+    select
+    <include refid="baseColumnList" />
+    from EXPORT_BUSINESS_ZHAIQ
+    where INPUTDATE = #{inputdate}
+  </select>
+
+  <delete id="deleteAllByInpudate" parameterType="java.lang.String" >
+    delete from EXPORT_BUSINESS_ZHAIQ ebz where ebz.inputdate = #{inputdate,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteAll">
+    delete from EXPORT_BUSINESS_ZHAIQ
+  </delete>
+
   <resultMap id="BaseResultMap" type="com.brh.p2p.nifa.data.entity.ExportBusinessProjEntity" >
     <id column="INPUTDATE" property="inputdate" jdbcType="VARCHAR" />
     <id column="UNIQUEID" property="uniqueid" jdbcType="VARCHAR" />
@@ -37,58 +89,6 @@
     <result column="LOANUSAGE" property="loanusage" jdbcType="VARCHAR" />
     <result column="INVESTORNUM" property="investornum" jdbcType="DECIMAL" />
   </resultMap>
-
-  <sql id="baseColumnList" >
-    INPUTDATE,
-    UNIQUEID, SOCIALID, PLATFORMNO, PROJECTNO, PROJECTTYPE, PROJECTNAME, ESTABLISHDATE,
-    BUSINESSSUM, CURRENCY, PUTOUTDATE, MATURITYDATE, LOANTERM, LOANRATE, FEERATE, PLAFORMAMT, 
-    OTHERFEEAMT, GUARANTEE, LOANPERIOD, VOUCHTYPE, GUARANTEECOMPANY, PAYSCHEDULE, ACTUALPAYRECORD, 
-    ACTUALPAYCORPUSAMT, ACTUALPAYINTEAMT, SURPLUSPAYINTEAMT, SURPLUSAYINTEAMT, TRANSFERFLAG, 
-    PROJECCTSTATUS, OVERDUEREASON, OVERDUENUM, REPAYMENTMETHOD, LOANUSAGE, INVESTORNUM
-  </sql>
-
-  <sql id="viewColumnList" >
-    UNIQUEID, SOCIALID, PLATFORMNO, PROJECTNO, PROJECTTYPE, PROJECTNAME, ESTABLISHDATE,
-    BUSINESSSUM, CURRENCY, PUTOUTDATE, MATURITYDATE, LOANTERM, LOANRATE, FEERATE, PLAFORMAMT,
-    OTHERFEEAMT, GUARANTEE, LOANPERIOD, VOUCHTYPE, GUARANTEECOMPANY, PAYSCHEDULE, ACTUALPAYRECORD,
-    ACTUALPAYCORPUSAMT, ACTUALPAYINTEAMT, SURPLUSPAYINTEAMT, SURPLUSAYINTEAMT, TRANSFERFLAG,
-    PROJECCTSTATUS, OVERDUEREASON, OVERDUENUM, REPAYMENTMETHOD, LOANUSAGE, INVESTORNUM
-  </sql>
-
-  <insert id="insertAllByInputdate" >
-    INSERT INTO EXPORT_BUSINESS_ZHAIQ (
-      <include refid="baseColumnList"/>
-    )
-    SELECT #{inputdate} as INPUTDATE,
-      <include refid="viewColumnList"/>
-    FROM V_EXPORTBUSINESSZHAIQ
-    WHERE ESTABLISHDATE = #{inputdate}
-    OR PROJECTNO = (SELECT al.CLEARANCEACCTNO FROM ACCT_BACK_BILL abb,ACCT_LOAN al WHERE al.SERIALNO = abb.OBJECTNO AND abb.ACTUALPAYDATE = #{inputdate})
-  </insert>
-
-  <insert id="insertAll" >
-    INSERT INTO EXPORT_BUSINESS_ZHAIQ (
-    <include refid="baseColumnList"/>
-    )
-    SELECT #{inputdate} as INPUTDATE,
-    <include refid="viewColumnList"/>
-    FROM V_EXPORTBUSINESSZHAIQ
-  </insert>
-
-  <select id="selectAllByInputdate" parameterType="java.lang.String" resultType = "com.brh.p2p.nifa.data.entity.ExportBusinessProjEntity">
-    select
-    <include refid="baseColumnList" />
-    from EXPORT_BUSINESS_ZHAIQ
-    where INPUTDATE = #{inputdate}
-  </select>
-
-  <delete id="deleteAllByInpudate" parameterType="java.lang.String" >
-    delete from EXPORT_BUSINESS_ZHAIQ ebz where ebz.inputdate = #{inputdate,jdbcType=VARCHAR}
-  </delete>
-
-  <delete id="deleteAll">
-    delete from EXPORT_BUSINESS_ZHAIQ
-  </delete>
 
   <insert id="insert" parameterType="com.brh.p2p.nifa.data.entity.ExportBusinessProjEntity" >
     insert into EXPORT_BUSINESS_ZHAIQ (INPUTDATE, UNIQUEID, SOCIALID, 

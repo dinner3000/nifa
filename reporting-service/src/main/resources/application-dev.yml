@@ -12,6 +12,5 @@ spring:
     password: new5020
 
 nifa:
-  report:
-    file:
-      dir: d:/temp
+  transfer-service:
+    url: http://10.211.17.72:8888/nifa/sftp/upload

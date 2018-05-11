@@ -1,0 +1,19 @@
+#配置信息
+conf:
+  #-------------产品登记配置信息------------
+  pubx: fe03c67e874cc80b4111832136623a15378c2b60c1d3700d4f345727631100e8 #登记系统专用公钥x
+  puby: fcc91a1e579488bde2f20167905ee223cc97bc1b4d0695f3d6318e56208eff0f #登记系统专用公钥y
+  prvkey: 661324cbb5e0b8a44b33532032d55a79b91a849dbc857434d29d671c777060be #登记系统专用私钥
+  host: 221.238.206.12 # 登记系统sftp服务器ip地址
+  port: 37980 #登记系统sftp服务器端口号
+  userName: brh_mgr #登记系统sftp服务器登录用户名
+  password: M439B20u  #登记系统sftp服务器登录密码
+
+  #-------------统计监测二期配置信息---------
+  pubxTwo: fe03c67e874cc80b4111832136623a15378c2b60c1d3700d4f345727631100e8 #统计监测二期专用公钥x
+  pubyTwo: fcc91a1e579488bde2f20167905ee223cc97bc1b4d0695f3d6318e56208eff0f  #统计监测二期专用公钥y
+  prvkeyTwo: 661324cbb5e0b8a44b33532032d55a79b91a849dbc857434d29d671c777060be #统计监测二期专用私钥
+  hostTwo: 221.238.206.12  #统计监测二期 sftp服务器ip地址统计
+  portTwo: 37980  #统计监测二期sftp端口号统计
+  userNameTwo: brh_mgr  #统计监测二期sftp服务器登录用户名
+  passwordTwo: M439B20u  #统计监测二期sftp服务器登录密码

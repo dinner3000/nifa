@@ -60,10 +60,14 @@ public class ExportBusinessFileService {
                 sdf.format(new Date()));
         File dir = dirPath.toFile();
         if(!dir.exists()){
-            dir.mkdir();
+            dir.mkdirs();
         }
         this.dirPath = dirPath;
         logger.info("Work dir: {}", dirPath.toString());
+
+        if(!dir.exists()){
+            logger.error("Expected error: work dir not exists");
+        }
     }
 
     public String generateFilePackage() throws IOException, TemplateException, ZipException {

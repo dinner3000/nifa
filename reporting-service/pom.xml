@@ -5,7 +5,7 @@
 
 	<groupId>com.brh.p2p</groupId>
 	<artifactId>nifa-reporting-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 
 	<name>nifa-reporting-service</name>
@@ -50,6 +50,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-freemarker</artifactId>
+		</dependency>
+
+		<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-quartz</artifactId>
 		</dependency>
 
 		<!--<dependency>-->

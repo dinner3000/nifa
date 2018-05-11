@@ -1,0 +1,16 @@
+logging:
+  level:
+    com.brh.p2p.nifa: debug
+
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@10.211.8.10:1521/PRIMARY
+    username: brh_product_nifa
+    password: brh_product_nifa#2017
+
+nifa:
+  transfer-service:
+    url: http://127.0.0.1:8888/nifa/sftp/upload

@@ -15,6 +15,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,8 +39,7 @@ import java.util.Map;
 @RequestMapping(value = "/nifa/report")
 public class ExportBusinessController {
 
-    @Autowired
-    private Configuration configuration;
+    Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     @Qualifier("ExportBusinessProjService")
@@ -90,6 +91,8 @@ public class ExportBusinessController {
     @GetMapping("/sendFiles")
     @ResponseBody
     public Object sendFiles(String inputdate) throws IOException, TemplateException, ZipException {
+
+        logger.info("Manual process: {}", inputdate);
         exportBusinessFileService.initWorkEnv(inputdate);
         String packagePath =  exportBusinessFileService.generateFilePackage();
 
@@ -97,6 +100,7 @@ public class ExportBusinessController {
                 nifaTransferServiceUrl,
                 URLEncoder.encode(packagePath, "UTF-8"));
 
+        logger.info("Prepare to sent file via url: {}", url);
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet(url);
         CloseableHttpResponse response = httpclient.execute(httpGet);
@@ -109,6 +113,7 @@ public class ExportBusinessController {
         } finally {
             response.close();
         }
+        logger.info("Completed: {}", ret);
         return ret;
     }
 }

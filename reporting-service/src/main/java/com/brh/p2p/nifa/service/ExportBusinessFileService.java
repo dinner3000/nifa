@@ -8,6 +8,8 @@ import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.util.Zip4jConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,8 @@ import java.util.Map;
 
 @Service
 public class ExportBusinessFileService {
+
+    Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private Configuration configuration;
@@ -44,6 +48,9 @@ public class ExportBusinessFileService {
 
     public void initWorkEnv(String inputdate){
 
+        logger.info("Init file service with below settings:");
+
+        logger.info("Date: {}", inputdate);
         this.inputDate = inputdate;
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -56,6 +63,7 @@ public class ExportBusinessFileService {
             dir.mkdir();
         }
         this.dirPath = dirPath;
+        logger.info("Work dir: {}", dirPath.toString());
     }
 
     public String generateFilePackage() throws IOException, TemplateException, ZipException {
@@ -63,6 +71,7 @@ public class ExportBusinessFileService {
         this.generateBorFile();
         this.generateInvFile();
 
+        logger.info("Package files into a zip");
         ZipParameters par=new ZipParameters();
         par.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
         par.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_NORMAL);
@@ -76,11 +85,14 @@ public class ExportBusinessFileService {
                 zipfile.addFile(f, par);
             }
         }
+        logger.info("Packaged: {}", pkgPath.toString());
 
         return pkgPath.toString();
     }
 
     public void generateProjFile() throws IOException, TemplateException {
+
+        logger.info("Generate: proj file");
         Map<String, Object> model = new HashMap<>();
         List<ExportBusinessProjEntity> list = exportBusinessProjService.findAllByInputdate(inputDate);
         model.put("list", list);
@@ -92,9 +104,12 @@ public class ExportBusinessFileService {
         t.process(model, out);
         out.flush();
         out.close();
+        logger.info("Generated: {}", filePath.toString());
     }
 
     public void generateBorFile() throws IOException, TemplateException {
+
+        logger.info("Generate: bor file");
         Map<String, Object> model = new HashMap<>();
         List<ExportBusinessProjEntity> list = exportBusinessBorService.findAllByInputdate(inputDate);
         model.put("list", list);
@@ -106,9 +121,12 @@ public class ExportBusinessFileService {
         t.process(model, out);
         out.flush();
         out.close();
+        logger.info("Generated: {}", filePath.toString());
     }
 
     public void generateInvFile() throws IOException, TemplateException {
+
+        logger.info("Generate: inv file");
         Map<String, Object> model = new HashMap<>();
         List<ExportBusinessProjEntity> list = exportBusinessInvService.findAllByInputdate(inputDate);
         model.put("list", list);
@@ -120,6 +138,7 @@ public class ExportBusinessFileService {
         t.process(model, out);
         out.flush();
         out.close();
+        logger.info("Generated: {}", filePath.toString());
     }
 
 }

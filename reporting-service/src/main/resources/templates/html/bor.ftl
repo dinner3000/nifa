@@ -1,8 +1,53 @@
 <html>
 <head></head>
 <body>
-<#list list as item>
-${item.uniqueid!''}|${item.usertype!''}|${item.userid!''}|${item.certtype!''}|${item.certid!''}|${item.sexual!''}|${item.incomelevel!''}|${item.incomesource!''}|${item.position!''}|${item.city!''}|${item.paymentfund!''}|${item.registfund!''}|${item.guildsec!''}|${item.foundtime!''}|${item.bankname!''}|${item.bankarea!''}|${item.creditrating!''}|${item.borrownum!''}
-</#list>
+<table>
+    <thead>
+    <tr>
+        <th>项目唯一编号</th>
+        <th>借款人类型</th>
+        <th>借款人ID</th>
+        <th>证件类型</th>
+        <th>证件号码</th>
+        <th>借款人性别</th>
+        <th>借款人年平均收入</th>
+        <th>借款人主要收入来源</th>
+        <th>职业类型</th>
+        <th>所属地区</th>
+        <th>实缴资本</th>
+        <th>注册资本</th>
+        <th>所属行业</th>
+        <th>机构成立时间</th>
+        <th>收款账户开户行银行名称</th>
+        <th>收款账户开户行所在地区</th>
+        <th>借款人信用评级</th>
+        <th>借款人累计借款次数</th>
+    </tr>
+    </thead>
+    <tbody>
+    <#list list as item>
+    <tr>
+        <td>${item.uniqueid!''}</td>
+        <td>${item.usertype!''}</td>
+        <td>${item.userid!''}</td>
+        <td>${item.certtype!''}</td>
+        <td>${item.certid!''}</td>
+        <td>${item.sexual!''}</td>
+        <td>${item.incomelevel!''}</td>
+        <td>${item.incomesource!''}</td>
+        <td>${item.position!''}</td>
+        <td>${item.city!''}</td>
+        <td>${item.paymentfund!''}</td>
+        <td>${item.registfund!''}</td>
+        <td>${item.guildsec!''}</td>
+        <td>${item.foundtime!''}</td>
+        <td>${item.bankname!''}</td>
+        <td>${item.bankarea!''}</td>
+        <td>${item.creditrating!''}</td>
+        <td>${item.borrownum!''}</td>
+    </tr>
+    </#list>
+    </tbody>
+</table>
 </body>
 </html>

@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+
+  <!-- Bootstrap CSS -->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="./stylesheets/bootstrap.css" />
+  <link rel="stylesheet" href="./stylesheets/bootstrap-theme.css" />
+  <link rel="stylesheet" href="./stylesheets/bootstrap-datepicker3.css" />
+
+  <style>
+    .container {
+      padding-top: 50px;
+    }
+
+    .command-bar {
+      margin-top: 30px;
+      overflow: hidden;
+    }
+
+    .tabs-bar {
+      margin-top: 30px;
+    }
+  </style>
+  <title>互金协会数据报送控制面板</title>
+</head>
+
+<body>
+  <div class="container">
+    <h1>互金协会数据报送控制面板</h1>
+
+    <div class="command-bar">
+      <form class="navbar-form navbar-left">
+
+        <div class="input-group date" id="datepicker">
+          <input type="text" class="form-control" name="inputdate" id="inputdate" />
+          <span class="input-group-addon">
+            <i class="glyphicon glyphicon-th"></i>
+          </span>
+        </div>
+
+        <button class="btn btn-default" data-toggle="button" aria-pressed="false" id="btn-review">查看</button>
+        <button class="btn btn-primary" data-toggle="button" aria-pressed="false" id="btn-upload">执行上传</button>
+        <button class="btn btn-danger" data-toggle="button" aria-pressed="false" id="btn-generate">重新生成</button>
+
+        <input type="hidden" name="user-action" id="user-action" />
+        <input type="hidden" name="user-confirm" id="user-confirm" />
+      </form>
+    </div>
+    <div class="tabs-bar">
+      <ul class="nav nav-tabs">
+        <li role="presentation" class="active">
+          <a href="#proj" aria-controls="proj" role="tab" data-toggle="tab">项目信息</a>
+        </li>
+        <li role="presentation">
+          <a href="#bor" aria-controls="bor" role="tab" data-toggle="tab">借款人信息</a>
+        </li>
+        <li role="presentation">
+          <a href="#inv" aria-controls="inv" role="tab" data-toggle="tab">出借人信息</a>
+        </li>
+      </ul>
+    </div>
+    <div id="myTabContent" class="tab-content">
+      <div role="tabpanel" class="tab-pane fade in active" id="proj">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">序号</th>
+              <th scope="col">项目唯一编号</th>
+              <th scope="col">社会信用代码</th>
+              <th scope="col">平台序号</th>
+              <th scope="col">项目编号</th>
+              <th scope="col">项目类型</th>
+              <th scope="col">项目名称</th>
+              <th scope="col">项目成立日期</th>
+              <th scope="col">借款金额</th>
+              <th scope="col">借款币种</th>
+              <th scope="col">借款起息日</th>
+              <th scope="col">借款到期日期</th>
+              <th scope="col">借款期限</th>
+              <th scope="col">出借利率</th>
+              <th scope="col">项目费率</th>
+              <th scope="col">项目费用</th>
+              <th scope="col">其他费用</th>
+              <th scope="col">还款保证措施</th>
+              <th scope="col">还款期数</th>
+              <th scope="col">担保方式</th>
+              <th scope="col">担保公司名称</th>
+              <th scope="col">约定还款计划</th>
+              <th scope="col">实际还款记录</th>
+              <th scope="col">实际累计本金偿还额</th>
+              <th scope="col">实际累计利息偿还额</th>
+              <th scope="col">借款剩余本金余额</th>
+              <th scope="col">借款剩余应付利息</th>
+              <th scope="col">是否支持转让</th>
+              <th scope="col">项目状态</th>
+              <th scope="col">逾期原因</th>
+              <th scope="col">逾期次数</th>
+              <th scope="col">还款方式</th>
+              <th scope="col">借款用途</th>
+              <th scope="col">出借人个数</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr is="proj-record" v-for="(record, index) in projRecords" v-bind:key="index" v-bind:record="record" v-bind:index="index"></tr>
+          </tbody>
+        </table>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="bor">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">序号</th>
+              <th scope="col">项目唯一编号</th>
+              <th scope="col">借款人类型</th>
+              <th scope="col">借款人ID</th>
+              <th scope="col">证件类型</th>
+              <th scope="col">证件号码</th>
+              <th scope="col">借款人性别</th>
+              <th scope="col">借款人年平均收入</th>
+              <th scope="col">借款人主要收入来源</th>
+              <th scope="col">职业类型</th>
+              <th scope="col">所属地区</th>
+              <th scope="col">实缴资本</th>
+              <th scope="col">注册资本</th>
+              <th scope="col">所属行业</th>
+              <th scope="col">机构成立时间</th>
+              <th scope="col">收款账户开户行银行名称</th>
+              <th scope="col">收款账户开户行所在地区</th>
+              <th scope="col">借款人信用评级</th>
+              <th scope="col">借款人累计借款次数</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr is="bor-record" v-for="(record, index) in borRecords" v-bind:key="index" v-bind:record="record" v-bind:index="index"></tr>
+          </tbody>
+        </table>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="inv">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">序号</th>
+              <th scope="col">项目唯一编号</th>
+              <th scope="col">出借人类型</th>
+              <th scope="col">出借人ID</th>
+              <th scope="col">证件类型</th>
+              <th scope="col">证件号码</th>
+              <th scope="col">职业类型</th>
+              <th scope="col">所属地区</th>
+              <th scope="col">所属行业</th>
+              <th scope="col">出借金额</th>
+              <th scope="col">出借状态</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr is="inv-record" v-for="(record, index) in invRecords" v-bind:key="index" v-bind:record="record" v-bind:index="index"></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal-notice">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">&times;</span>
+              <span class="sr-only">Close</span>
+            </button>
+            <h4 class="modal-title">操作提示</h4>
+          </div>
+          <div class="modal-body">
+            <p class="modal-body-text" id="modal-notice-text">操作无效，请返回重新选择。</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.modal -->
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal-confirm">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">&times;</span>
+              <span class="sr-only">Close</span>
+            </button>
+            <h4 class="modal-title">操作确认</h4>
+          </div>
+          <div class="modal-body">
+            <p class="modal-body-text" id="modal-confirm-text">您确定要继续进行操作吗？</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="modal-btn-confirm">确定</button>
+            <button type="button" class="btn btn-default" id="modal-btn-cancel" data-dismiss="modal">取消</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.modal -->
+  </div>
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="./javascripts/jquery.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="./javascripts/bootstrap.js"></script>
+  <script src="./javascripts/bootstrap-datepicker.js"></script>
+  <script src="./javascripts/bootstrap-datepicker.zh-CN.js"></script>
+
+  <script src="./javascripts/vue.js"></script>
+
+  <!-- Optional JavaScript -->
+  <script lang="JavaScript">
+    $(document).ready(function () {
+      //Init global variables for later binding between DOM and VUE
+      // var projRecords = [];
+
+      //Init vue components
+      Vue.component('proj-record', {
+        props: ["record", "index"],
+        template: 
+          `<tr>
+            <th scope="row">{{ index + 1 }}</th>
+            <td><div style="">{{ record.uniqueid }}</div></td>
+            <td><div style="">{{ record.socialid }}</div></td>
+            <td><div style="">{{ record.platformno }}</div></td>
+            <td><div style="">{{ record.projectno }}</div></td>
+            <td><div style="">{{ record.projecttype }}</div></td>
+            <td><div style="width:200px">{{ record.projectname }}</div></td>
+            <td><div style="">{{ record.establishdate }}</div></td>
+            <td><div style="">{{ record.businesssum }}</div></td>
+            <td><div style="">{{ record.currency }}</div></td>
+            <td><div style="">{{ record.putoutdate }}</div></td>
+            <td><div style="">{{ record.maturitydate }}</div></td>
+            <td><div style="">{{ record.loanterm }}</div></td>
+            <td><div style="">{{ record.loanrate }}</div></td>
+            <td><div style="">{{ record.feerate }}</div></td>
+            <td><div style="">{{ record.plaformamt }}</div></td>
+            <td><div style="">{{ record.otderfeeamt }}</div></td>
+            <td><div style="">{{ record.guarantee }}</div></td>
+            <td><div style="">{{ record.loanperiod }}</div></td>
+            <td><div style="">{{ record.vouchtype }}</div></td>
+            <td><div style="width:200px">{{ record.guaranteecompany }}</div></td>
+            <td><div style="width:200px">{{ record.payschedule }}</div></td>
+            <td><div style="">{{ record.actualpayrecord }}</div></td>
+            <td><div style="">{{ record.actualpaycorpusamt }}</div></td>
+            <td><div style="">{{ record.actualpayinteamt }}</div></td>
+            <td><div style="">{{ record.surpluspayinteamt }}</div></td>
+            <td><div style="">{{ record.surplusayinteamt }}</div></td>
+            <td><div style="">{{ record.transferflag }}</div></td>
+            <td><div style="">{{ record.projecctstatus }}</div></td>
+            <td><div style="width:200px">{{ record.overduereason }}</div></td>
+            <td><div style="">{{ record.overduenum }}</div></td>
+            <td><div style="">{{ record.repaymentmetdod }}</div></td>
+            <td><div style="">{{ record.loanusage }}</div></td>
+            <td><div style="">{{ record.investornum }}</div></td>
+          </tr>`
+      });
+      Vue.component('bor-record', {
+        props: ["record", "index"],
+        template: 
+          `<tr>
+            <th scope="row">{{ index + 1 }}</th>
+            <td><div style="">{{ record.uniqueid }}</div></td>
+            <td><div style="">{{ record.usertype }}</div></td>
+            <td><div style="">{{ record.userid }}</div></td>
+            <td><div style="">{{ record.certtype }}</div></td>
+            <td><div style="">{{ record.certid }}</div></td>
+            <td><div style="">{{ record.sexual }}</div></td>
+            <td><div style="">{{ record.incomelevel }}</div></td>
+            <td><div style="">{{ record.incomesource }}</div></td>
+            <td><div style="">{{ record.position }}</div></td>
+            <td><div style="">{{ record.city }}</div></td>
+            <td><div style="">{{ record.paymentfund }}</div></td>
+            <td><div style="">{{ record.registfund }}</div></td>
+            <td><div style="">{{ record.guildsec }}</div></td>
+            <td><div style="">{{ record.foundtime }}</div></td>
+            <td><div style="">{{ record.bankname }}</div></td>
+            <td><div style="">{{ record.bankarea }}</div></td>
+            <td><div style="">{{ record.creditrating }}</div></td>
+            <td><div style="">{{ record.borrownum }}</div></td>
+          </tr>`
+      });
+      Vue.component('inv-record', {
+        props: ["record", "index"],
+        template: 
+          `<tr>
+            <th scope="row">{{ index + 1 }}</th>
+            <td><div style="">{{ record.uniqueid }}</div></td>
+            <td><div style="">{{ record.usertype }}</div></td>
+            <td><div style="">{{ record.userid }}</div></td>
+            <td><div style="">{{ record.certtype }}</div></td>
+            <td><div style="">{{ record.certid }}</div></td>
+            <td><div style="">{{ record.industrialtype }}</div></td>
+            <td><div style="">{{ record.city }}</div></td>
+            <td><div style="">{{ record.guildsec }}</div></td>
+            <td><div style="">{{ record.businesssum }}</div></td>
+            <td><div style="">{{ record.investstatus }}</div></td>
+          </tr>`
+      });
+
+      var vmTabContent = new Vue({
+        el: '#myTabContent',
+        data: {
+          projRecords: [],
+          borRecords: [],
+          invRecords: []
+        },
+        created: function () {
+          // `this` 指向 vm 实例
+          // console.log('projRecords created');
+          // console.log(this.projRecords);
+        },
+        updated: function () {
+          // console.log('projRecords updated');
+          // console.log(this.projRecords[0]);
+        }
+      })
+
+      //Init restfull api client
+      // var apiBaseUrl = "./mock"
+      var apiBaseUrl = "/nifa/report/"
+      var apiClient = new RestApiClient(apiBaseUrl, vmTabContent);
+
+      // Init DatePicker component
+      $('#datepicker').datepicker({
+        format: "yyyy/mm/dd",
+        startDate: "2018/05/10",
+        endDate: "-1d",
+        daysOfWeekHighlighted: "0,6",
+        forceParse: true,
+        // defaultViewDate: "2018/05/11",
+        // startView: 1,
+        // todayBtn: true,
+        clearBtn: true,
+        language: "zh-CN",
+        autoclose: true,
+        todayHighlight: true
+      });
+      // $('#datepicker').on('changeDate', function () {
+      //   console.log($('#datepicker').datepicker('getFormattedDate'));
+      // });
+      $('#datepicker').datepicker("setDate", "-1d");
+
+      // Init button events
+      $("#btn-review").click(function () {
+        if (!$("#inputdate").val()) {
+          $("#modal-notice-text").text("日期无效，请返回重新选择。");
+          $("#modal-notice").modal("show");
+          return false;
+        }
+
+        apiClient.getProjData($("#inputdate").val());
+        apiClient.getBorData($("#inputdate").val());
+        apiClient.getInvData($("#inputdate").val());
+      });
+
+      $("#btn-upload").click(function () {
+        if (!$("#inputdate").val()) {
+          $("#modal-notice-text").text("日期无效，请返回重新选择。");
+          $("#modal-notice").modal("show");
+          return false;
+        }
+
+        $("#user-action").val("upload");
+        $("#modal-confirm").modal("show");
+
+        // console.log("upload data for date '%s'", $("#inputdate").val());
+      });
+
+      $("#btn-generate").click(function () {
+        if (!$("#inputdate").val()) {
+          $("#modal-notice-text").text("日期无效，请返回重新选择。");
+          $("#modal-notice").modal("show");
+          return false;
+        }
+
+        $("#user-action").val("generate");
+        $("#modal-confirm").modal("show");
+
+        // console.log("regenerate data for date '%s'", $("#inputdate").val());
+      });
+
+      //Init modal component
+      $('#modal-confirm').on('show.bs.modal', function (event) {
+        // var button = $(event.relatedTarget) // Button that triggered the modal
+        // var recipient = button.data('whatever') // Extract info from data-* attributes
+        var recipient = $("#user-action").val();
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        // console.log(recipient);
+        switch (recipient) {
+          case "upload":
+            // modal.find('.modal-title').text("操作确认")
+            modal.find('.modal-body .modal-body-text').text("即将进行接口文件上传，点击【确认】继续。");
+            break;
+          case "generate":
+            // modal.find('.modal-title').text("操作确认")
+            modal.find('.modal-body .modal-body-text').text("即将进行接口数据重新生成，点击【确认】继续。");
+            break;
+          default:
+            break;
+        }
+      })
+
+      $("#modal-btn-confirm").click(function () {
+
+        $("#modal-confirm").modal("hide");
+
+        switch ($("#user-action").val()) {
+          case "upload":
+            apiClient.uploadFiles($("#inputdate").val());
+            break;
+          case "generate":
+            apiClient.regenerateData($("#inputdate").val());
+            break;
+          default:
+            break;
+        }
+
+        $("#user-action").val("");
+      })
+
+      $("#modal-btn-cancel").click(function () {
+        $("#user-action").val("");
+      })
+
+    })
+
+    function RestApiClient(baseUrl, vm) {
+      this.getProjData = function (inputDate) {
+        // $.getJSON(baseUrl + "/getProjData.json",
+        $.getJSON(baseUrl + "/proj/showData?inputdate=" + inputDate,
+          function (data, status) {
+            // console.log(status);
+            // console.log(data);
+            vm.$data.projRecords = data;
+          }).fail(function () {
+          // console.log("fail");
+          $("#modal-notice-text").text("查询失败。");
+          $("#modal-notice").modal("show");
+        }).always(function () {
+          // console.log("complete");
+        });
+      }
+
+      this.getBorData = function (inputDate) {
+        // $.getJSON(baseUrl + "/getBorData.json",
+        $.getJSON(baseUrl + "/bor/showData?inputdate=" + inputDate,
+          function (data, status) {
+            // console.log(status);
+            // console.log(data);
+            vm.$data.borRecords = data;
+          }).fail(function () {
+          // console.log("fail");
+          $("#modal-notice-text").text("查询失败。");
+          $("#modal-notice").modal("show");
+        }).always(function () {
+          // console.log("complete");
+        });
+      }
+
+      this.getInvData = function (inputDate) {
+        // $.getJSON(baseUrl + "/getInvData.json",
+        $.getJSON(baseUrl + "/inv/showData?inputdate=" + inputDate,
+          function (data, status) {
+            // console.log(status);
+            // console.log(data);
+            vm.$data.invRecords = data;
+          }).fail(function () {
+          // console.log("fail");
+          $("#modal-notice-text").text("查询失败。");
+          $("#modal-notice").modal("show");
+        }).always(function () {
+          // console.log("complete");
+        });
+      }
+
+      this.uploadFiles = function (inputDate) {
+        // $.getJSON(baseUrl + "/uploadFiles.json",
+        $.getJSON(baseUrl + "/sendFiles?inputdate=" + inputDate,
+          function (data, status) {
+            // console.log(status);
+            console.log(data);
+            $(".modal-body-text").text("接口文件上传成功。");
+            $("#modal-notice").modal("show");
+          }).fail(function () {
+          // console.log("fail");
+          $("#modal-notice-text").text("接口文件上传失败。");
+          $("#modal-notice").modal("show");
+        }).always(function () {
+          // console.log("complete");
+        });
+      }
+
+      this.regenerateData = function (inputDate) {
+        // $.getJSON(baseUrl + "/regenerateData.json",
+        $.getJSON(baseUrl + "/regenerateData?inputdate=" + inputDate,
+          function (data, status) {
+            // console.log(status);
+            console.log(data);
+            $(".modal-body-text").text("接口数据已生成。");
+            $("#modal-notice").modal("show");
+          }).fail(function () {
+          // console.log("fail");
+          $("#modal-notice-text").text("接口数据生成失败。");
+          $("#modal-notice").modal("show");
+        }).always(function () {
+          // console.log("complete");
+        });
+      }
+    }
+  </script>
+
+</body>
+
+</html>

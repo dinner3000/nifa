@@ -3,7 +3,7 @@
 <mapper namespace="com.brh.p2p.nifa.data.repository.ExportBusinessInvMapper" >
 
   <sql id="baseColumnList" >
-    INPUTDATE, UNIQUEID, USERID, USERTYPE, CERTTYPE, CERTID, INDUSTRIALTYPE, CITY, GUILDSEC,
+    UNIQUEID, USERID, USERTYPE, CERTTYPE, CERTID, INDUSTRIALTYPE, CITY, GUILDSEC,
     BUSINESSSUM, INVESTSTATUS
   </sql>
 
@@ -14,9 +14,11 @@
 
   <insert id="insertAllByInputdate" >
     INSERT INTO BRH_PRODUCT.EXPORT_BUSINESS_ZHAIQ_INV (
+    INPUTDATE,
     <include refid="baseColumnList"/>
     )
-    SELECT #{inputdate} as INPUTDATE,
+    SELECT
+    #{inputdate} AS INPUTDATE,
     <include refid="viewColumnList"/>
     FROM BRH_PRODUCT.V_EXPORTBUSINESSZHAIQ_INV
     WHERE INPUTDATE = #{inputdate}
@@ -24,9 +26,11 @@
 
   <insert id="insertAll" >
     INSERT INTO BRH_PRODUCT.EXPORT_BUSINESS_ZHAIQ_INV (
+    INPUTDATE,
     <include refid="baseColumnList"/>
     )
-    SELECT #{inputdate} as INPUTDATE,
+    SELECT
+    INPUTDATE,
     <include refid="viewColumnList"/>
     FROM BRH_PRODUCT.V_EXPORTBUSINESSZHAIQ_INV
   </insert>

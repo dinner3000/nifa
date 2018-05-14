@@ -3,7 +3,6 @@
 <mapper namespace="com.brh.p2p.nifa.data.repository.ExportBusinessBorMapper" >
 
   <sql id="baseColumnList" >
-    INPUTDATE,
     UNIQUEID, USERID, USERTYPE, CERTTYPE, CERTID, SEXUAL, INCOMELEVEL, INCOMESOURCE,
     POSITION, CITY, PAYMENTFUND, REGISTFUND, GUILDSEC, FOUNDTIME, BANKNAME, BANKAREA,
     CREDITRATING, BORROWNUM
@@ -17,9 +16,11 @@
 
   <insert id="insertAllByInputdate" >
     INSERT INTO BRH_PRODUCT.EXPORT_BUSINESS_ZHAIQ_BOR (
+    INPUTDATE,
     <include refid="baseColumnList"/>
     )
-    SELECT #{inputdate} as INPUTDATE,
+    SELECT
+    #{inputdate} AS INPUTDATE,
     <include refid="viewColumnList"/>
     FROM BRH_PRODUCT.V_EXPORTBUSINESSZHAIQ_BOR
     WHERE INPUTDATE = #{inputdate}
@@ -27,9 +28,11 @@
 
   <insert id="insertAll" >
     INSERT INTO BRH_PRODUCT.EXPORT_BUSINESS_ZHAIQ_BOR (
+    INPUTDATE,
     <include refid="baseColumnList"/>
     )
-    SELECT #{inputdate} as INPUTDATE,
+    SELECT
+    INPUTDATE,
     <include refid="viewColumnList"/>
     FROM BRH_PRODUCT.EXPORT_BUSINESS_ZHAIQ_BOR
   </insert>

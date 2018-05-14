@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.awt.geom.RectangularShape;
 import java.io.*;
 import java.net.URLEncoder;
 import java.nio.file.Path;
@@ -63,7 +64,7 @@ public class ExportBusinessController {
         exportBusinessProjService.generateAllByInputdate(inputdate);
         exportBusinessBorService.generateAllByInputdate(inputdate);
         exportBusinessInvService.generateAllByInputdate(inputdate);
-        return "Done";
+        return true;
     }
 
     @ResponseBody
@@ -73,7 +74,7 @@ public class ExportBusinessController {
         exportBusinessProjService.regenerateAllByInputdate(inputdate);
         exportBusinessBorService.regenerateAllByInputdate(inputdate);
         exportBusinessInvService.regenerateAllByInputdate(inputdate);
-        return "Done";
+        return true;
     }
 
     @GetMapping("/generateFiles")
@@ -116,4 +117,6 @@ public class ExportBusinessController {
         logger.info("Completed: {}", ret);
         return ret;
     }
+
+
 }

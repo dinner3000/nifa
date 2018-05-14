@@ -28,8 +28,8 @@ spring:
     maxOpenPreparedStatements: 20
   freemarker:
     template-loader-path: classpath:templates
-  mvc:
-    static-path-pattern: classpath:static
+#  mvc:
+#    static-path-pattern: classpath:static
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml

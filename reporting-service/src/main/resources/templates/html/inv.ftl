@@ -1,8 +1,37 @@
 <html>
 <head></head>
 <body>
-<#list list as item>
-${item.uniqueid!''}|${item.usertype!''}|${item.userid!''}|${item.certtype!''}|${item.certid!''}|${item.industrialtype!''}|${item.city!''}|${item.guildsec!''}|${item.businesssum!''}|${item.investstatus!''}
-</#list>
+<table>
+    <thead>
+    <tr>
+        <th>项目唯一编号</th>
+        <th>出借人类型</th>
+        <th>出借人ID</th>
+        <th>证件类型</th>
+        <th>证件号码</th>
+        <th>职业类型</th>
+        <th>所属地区</th>
+        <th>所属行业</th>
+        <th>出借金额</th>
+        <th>出借状态</th>
+    </tr>
+    </thead>
+    <tbody>
+    <#list list as item>
+    <tr>
+        <td>${item.uniqueid!''}</td>
+        <td>${item.usertype!''}</td>
+        <td>${item.userid!''}</td>
+        <td>${item.certtype!''}</td>
+        <td>${item.certid!''}</td>
+        <td>${item.industrialtype!''}</td>
+        <td>${item.city!''}</td>
+        <td>${item.guildsec!''}</td>
+        <td>${item.businesssum!''}</td>
+        <td>${item.investstatus!''}</td>
+    </tr>
+    </#list>
+    </tbody>
+</table>
 </body>
 </html>

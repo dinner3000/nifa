@@ -1,9 +1,80 @@
 <html>
 <head></head>
 <body>
-<#list list as item>
-${item.uniqueid!''}|${item.socialid!''}|${item.platformno!''}|${item.projectno!''}|${item.projecttype!''}|${item.projectname!''}|${item.establishdate!''}|${item.businesssum!''}|${item.currency!''}|${item.putoutdate!''}|${item.maturitydate!''}|${item.loanterm!''}|${item.loanrate!''}|${item.feerate!''}|${item.plaformamt!''}|${item.otherfeeamt!''}|${item.guarantee!''}|${item.loanperiod!''}|${item.vouchtype!''}|${item.guaranteecompany!''}|${item.payschedule!''}|${item.actualpayrecord!''}|${item.actualpaycorpusamt!''}|${item.actualpayinteamt!''}|${item.surpluspayinteamt!''}|${item.surplusayinteamt!''}|${item.transferflag!''}|${item.projecctstatus!''}|${item.overduereason!''}|${item.overduenum!''}|${item.repaymentmethod!''}|${item.loanusage!''}|${item.investornum!''}
-</#list>
+<table>
+    <tr>
+        <td>项目唯一编号</td>
+        <td>社会信用代码</td>
+        <td>平台序号</td>
+        <td>项目编号</td>
+        <td>项目类型</td>
+        <td>项目名称</td>
+        <td>项目成立日期</td>
+        <td>借款金额</td>
+        <td>借款币种</td>
+        <td>借款起息日</td>
+        <td>借款到期日期</td>
+        <td>借款期限</td>
+        <td>出借利率</td>
+        <td>项目费率</td>
+        <td>项目费用</td>
+        <td>其他费用</td>
+        <td>还款保证措施</td>
+        <td>还款期数</td>
+        <td>担保方式</td>
+        <td>担保公司名称</td>
+        <td>约定还款计划</td>
+        <td>实际还款记录</td>
+        <td>实际累计本金偿还额</td>
+        <td>实际累计利息偿还额</td>
+        <td>借款剩余本金余额</td>
+        <td>借款剩余应付利息</td>
+        <td>是否支持转让</td>
+        <td>项目状态</td>
+        <td>逾期原因</td>
+        <td>逾期次数</td>
+        <td>还款方式</td>
+        <td>借款用途</td>
+        <td>出借人个数</td>
+    </tr>
+    <#list list as item>
+    <tr>
+        <td>${item.uniqueid!''}</td>
+        <td>${item.socialid!''}</td>
+        <td>${item.platformno!''}</td>
+        <td>${item.projectno!''}</td>
+        <td>${item.projecttype!''}</td>
+        <td>${item.projectname!''}</td>
+        <td>${item.establishdate!''}</td>
+        <td>${item.businesssum!''}</td>
+        <td>${item.currency!''}</td>
+        <td>${item.putoutdate!''}</td>
+        <td>${item.maturitydate!''}</td>
+        <td>${item.loanterm!''}</td>
+        <td>${item.loanrate!''}</td>
+        <td>${item.feerate!''}</td>
+        <td>${item.plaformamt!''}</td>
+        <td>${item.otderfeeamt!''}</td>
+        <td>${item.guarantee!''}</td>
+        <td>${item.loanperiod!''}</td>
+        <td>${item.vouchtype!''}</td>
+        <td>${item.guaranteecompany!''}</td>
+        <td>${item.payschedule!''}</td>
+        <td>${item.actualpayrecord!''}</td>
+        <td>${item.actualpaycorpusamt!''}</td>
+        <td>${item.actualpayinteamt!''}</td>
+        <td>${item.surpluspayinteamt!''}</td>
+        <td>${item.surplusayinteamt!''}</td>
+        <td>${item.transferflag!''}</td>
+        <td>${item.projecctstatus!''}</td>
+        <td>${item.overduereason!''}</td>
+        <td>${item.overduenum!''}</td>
+        <td>${item.repaymentmetdod!''}</td>
+        <td>${item.loanusage!''}</td>
+        <td>${item.investornum!''}</td>
+    </tr>
+    </#list>
+</table>
 
 </body>
 </html>

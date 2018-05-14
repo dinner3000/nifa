@@ -1,7 +1,5 @@
 package com.brh.p2p.nifa.service;
 
-import com.brh.p2p.nifa.data.entity.ExportBusinessProjEntity;
-
 import java.util.List;
 
 public interface ExportBusinessService<T> {

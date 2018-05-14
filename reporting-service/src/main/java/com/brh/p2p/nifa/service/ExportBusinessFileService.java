@@ -66,7 +66,7 @@ public class ExportBusinessFileService {
         logger.info("Work dir: {}", dirPath.toString());
 
         if(!dir.exists()){
-            logger.error("Expected error: work dir not exists");
+            logger.error("Unexpected error: work dir not exists");
         }
     }
 

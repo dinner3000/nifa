@@ -1,13 +1,11 @@
 package com.brh.p2p.nifa.service;
 
-import com.brh.p2p.nifa.data.entity.ExportBusinessBorEntity;
 import com.brh.p2p.nifa.data.entity.ExportBusinessInvEntity;
 import com.brh.p2p.nifa.data.repository.ExportBusinessInvMapper;
 import freemarker.template.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

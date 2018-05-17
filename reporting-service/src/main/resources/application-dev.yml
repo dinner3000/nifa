@@ -13,4 +13,5 @@ spring:
 
 nifa:
   transfer-service:
-    url: http://10.211.17.72:8888/nifa/sftp/upload
+    host: 127.0.0.1
+    port: 8888

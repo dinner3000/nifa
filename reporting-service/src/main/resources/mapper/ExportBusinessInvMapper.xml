@@ -21,7 +21,7 @@
     #{inputdate} AS INPUTDATE,
     <include refid="viewColumnList"/>
     FROM BRH_PRODUCT.V_EXPORTBUSINESSZHAIQ_INV
-    WHERE INPUTDATE = #{inputdate}
+    WHERE (INPUTDATE = #{inputdate} OR ACTUALPAYDATE = #{inputdate}) AND ESTABLISHDATE >= '20180510'
   </insert>
 
   <insert id="insertAll" >

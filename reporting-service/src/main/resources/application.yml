@@ -46,3 +46,13 @@ pagehelper:
     supportMethodsArguments: true
     params: count=countSql
     returnPageInfo: check
+
+nifa:
+  transfer-service:
+    host: 127.0.0.1
+    port: 8888
+    upload-url: http://${nifa.transfer-service.host}:${nifa.transfer-service.port}/nifa/sftp/upload?systemid=1&stype=24&sourcePath=%s
+    download-url: http://${nifa.transfer-service.host}:${nifa.transfer-service.port}/nifa/sftp/download?systemid=1&stype=24&sourcePath=%s&targetPath=%s
+  work-dir:
+    datafiles: ${user.dir}/datafiles
+#    feedback: ${user.dir}/feedback

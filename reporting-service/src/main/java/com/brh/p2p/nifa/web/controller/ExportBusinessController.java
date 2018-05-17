@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.text.ParseException;
 
 @Controller
 @RequestMapping(value = "/nifa/report")
@@ -67,26 +68,26 @@ public class ExportBusinessController {
 
     @GetMapping("/generateFiles")
     @ResponseBody
-    public Object generateFiles(String inputdate) throws IOException, TemplateException, ZipException {
+    public Object generateFiles(String inputdate) throws Exception {
         exportBusinessFileService.initWorkEnv(inputdate);
         String packagePath =  exportBusinessFileService.generateFilePackage();
 
         return packagePath;
     }
 
-    @Value("${nifa.transfer-service.url}")
-    private String nifaTransferServiceUrl;
+    @Value("${nifa.transfer-service.upload-url}")
+    private String nifaTransferServiceUploadUrl;
 
     @GetMapping("/sendFiles")
     @ResponseBody
-    public Object sendFiles(String inputdate) throws IOException, TemplateException, ZipException {
+    public Object sendFiles(String inputdate) throws Exception {
 
-        logger.info("Manual process: {}", inputdate);
+        logger.info("Generate package for date: {}", inputdate);
         exportBusinessFileService.initWorkEnv(inputdate);
         String packagePath =  exportBusinessFileService.generateFilePackage();
 
-        String url = String.format("%s?systemid=1&stype=24&sourcePath=%s",
-                nifaTransferServiceUrl,
+        String url = String.format(
+                nifaTransferServiceUploadUrl,
                 URLEncoder.encode(packagePath, "UTF-8"));
 
         logger.info("Prepare to sent file via url: {}", url);
@@ -95,7 +96,7 @@ public class ExportBusinessController {
         CloseableHttpResponse response = httpclient.execute(httpGet);
         String ret = null;
         try {
-            System.out.println(response.getStatusLine());
+            logger.info(response.getStatusLine().toString());
             HttpEntity entity = response.getEntity();
             ret = EntityUtils.toString(entity);
             EntityUtils.consume(entity);
@@ -105,6 +106,38 @@ public class ExportBusinessController {
         logger.info("Completed: {}", ret);
         return ret;
     }
+
+//    @Value("${nifa.transfer-service.download-url}")
+//    private String nifaTransferServiceDownloadUrl;
+//
+//    @GetMapping("/getFeedback")
+//    @ResponseBody
+//    public Object getFeedbackFiles(String inputdate) throws Exception {
+//
+//        logger.info("Manual process: {}", inputdate);
+//        exportBusinessFileService.initWorkEnv(inputdate);
+//        String packagePath =  exportBusinessFileService.generateFilePackage();
+//
+//        String url = String.format(
+//                nifaTransferServiceDownloadUrl,
+//                URLEncoder.encode(packagePath, "UTF-8"));
+//
+//        logger.info("Prepare to sent file via url: {}", url);
+//        CloseableHttpClient httpclient = HttpClients.createDefault();
+//        HttpGet httpGet = new HttpGet(url);
+//        CloseableHttpResponse response = httpclient.execute(httpGet);
+//        String ret = null;
+//        try {
+//            logger.info(response.getStatusLine().toString());
+//            HttpEntity entity = response.getEntity();
+//            ret = EntityUtils.toString(entity);
+//            EntityUtils.consume(entity);
+//        } finally {
+//            response.close();
+//        }
+//        logger.info("Completed: {}", ret);
+//        return ret;
+//    }
 
 
 }

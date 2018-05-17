@@ -3,3 +3,4 @@
 *.log
 datafiles
 *.gz
+*.tmp

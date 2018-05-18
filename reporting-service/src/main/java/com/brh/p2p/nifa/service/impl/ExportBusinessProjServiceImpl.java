@@ -1,7 +1,8 @@
-package com.brh.p2p.nifa.service;
+package com.brh.p2p.nifa.service.impl;
 
-import com.brh.p2p.nifa.data.entity.ExportBusinessInvEntity;
-import com.brh.p2p.nifa.data.repository.ExportBusinessInvMapper;
+import com.brh.p2p.nifa.data.entity.ExportBusinessProjEntity;
+import com.brh.p2p.nifa.data.repository.ExportBusinessProjMapper;
+import com.brh.p2p.nifa.service.ExportBusinessService;
 import freemarker.template.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,24 +12,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service("ExportBusinessInvService")
-public class ExportBusinessInvServiceImpl implements ExportBusinessService<ExportBusinessInvEntity> {
+@Service("ExportBusinessProjService")
+public class ExportBusinessProjServiceImpl implements ExportBusinessService<ExportBusinessProjEntity> {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
-    private ExportBusinessInvMapper exportBusinessInvMapper;
+    private ExportBusinessProjMapper exportBusinessProjMapper;
 
     @Autowired
     private Configuration configuration;
 
-    /**
-     * 不分页获取所有指定日期数据
-     * @param inputdate
-     * @return
-     */
     @Override
-    public List<ExportBusinessInvEntity> findAllByInputdate(String inputdate) {
+    public List<ExportBusinessProjEntity> findAllByInputdate(String inputdate) {
 
-        List<ExportBusinessInvEntity> records = exportBusinessInvMapper.selectAllByInputdate(inputdate);
+        List<ExportBusinessProjEntity> records = exportBusinessProjMapper.selectAllByInputdate(inputdate);
         logger.debug("{} records returned", records.size());
         return records;
     }
@@ -41,14 +37,14 @@ public class ExportBusinessInvServiceImpl implements ExportBusinessService<Expor
     @Override
     @Transactional
     public void removeAllByInputdate(String inputdate){
-        int n = exportBusinessInvMapper.deleteAllByInpudate(inputdate);
+        int n = exportBusinessProjMapper.deleteAllByInpudate(inputdate);
         logger.debug("{} records deleted", n);
     }
 
     @Override
     @Transactional
     public void clearAll(){
-        int n = exportBusinessInvMapper.deleteAll();
+        int n = exportBusinessProjMapper.deleteAll();
         logger.debug("{} records deleted", n);
     }
 
@@ -60,14 +56,14 @@ public class ExportBusinessInvServiceImpl implements ExportBusinessService<Expor
     @Override
     @Transactional
     public void generateAllByInputdate(String inputdate){
-        int n = exportBusinessInvMapper.insertAllByInputdate(inputdate);
+        int n = exportBusinessProjMapper.insertAllByInputdate(inputdate);
         logger.debug("{} records inserted", n);
     }
 
     @Override
     @Transactional
     public void generateAll(String inputdate) {
-        int n = exportBusinessInvMapper.insertAll(inputdate);
+        int n = exportBusinessProjMapper.insertAll(inputdate);
         logger.debug("{} records inserted", n);
     }
 

@@ -418,9 +418,11 @@
 
         switch ($("#user-action").val()) {
           case "upload":
+            $("#btn-upload").prop("disabled", true);
             apiClient.uploadFiles($("#inputdate").val());
             break;
           case "generate":
+            $("#btn-generate").prop("disabled", true);
             apiClient.regenerateData($("#inputdate").val());
             break;
           default:
@@ -499,6 +501,7 @@
           $("#modal-notice").modal("show");
         }).always(function () {
           // console.log("complete");
+          $("#btn-upload").prop("disabled", false);
         });
       }
 
@@ -516,6 +519,7 @@
           $("#modal-notice").modal("show");
         }).always(function () {
           // console.log("complete");
+          $("#btn-generate").prop("disabled", false);
         });
       }
     }

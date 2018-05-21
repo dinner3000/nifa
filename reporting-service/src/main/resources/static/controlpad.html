@@ -493,7 +493,11 @@
           function (data, status) {
             // console.log(status);
             console.log(data);
-            $(".modal-body-text").text("接口文件上传成功。");
+            if(!data.success){
+              $(".modal-body-text").text("接口文件上传失败。");
+            } else {
+              $(".modal-body-text").text("接口文件上传成功。");
+            }
             $("#modal-notice").modal("show");
           }).fail(function () {
           // console.log("fail");
@@ -511,7 +515,11 @@
           function (data, status) {
             // console.log(status);
             console.log(data);
-            $(".modal-body-text").text("接口数据已生成。");
+            if(data){
+              $(".modal-body-text").text("接口数据已生成。");
+            } else {
+              $(".modal-body-text").text("接口数据生成失败。");
+            }
             $("#modal-notice").modal("show");
           }).fail(function () {
           // console.log("fail");

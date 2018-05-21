@@ -44,7 +44,66 @@
 			<!--</resource>-->
 		</resources>
 
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<version>3.0.0</version>
+			</extension>
+		</extensions>
+
 		<plugins>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>wagon-maven-plugin</artifactId>
+				<version>2.0.0</version>
+				<executions>
+					<execution>
+						<id>upload-deploy</id>
+						<!-- 运行package打包的同时运行upload-single和sshexec -->
+						<phase>install</phase>
+						<goals>
+							<goal>upload</goal>
+							<goal>sshexec</goal>
+						</goals>
+						<configuration>
+							<fromDir>target</fromDir>
+							<includes>*.jar,*.sh</includes>
+							<!-- <excludes>*</excludes> -->
+							<url>scp://root:Bt2016@10.211.17.72</url>
+							<toDir>/root/nifa/reporting-service</toDir>
+							<commands>
+								<command><![CDATA[chmod 755 /root/nifa/reporting-service/*.sh]]></command>
+								<command><![CDATA[cd /root/nifa/reporting-service && sh -x ./shutdown.sh]]></command>
+								<command><![CDATA[cd /root/nifa/reporting-service && sh -x ./startup.sh]]></command>
+							</commands>
+							<displayCommandOutputs>true</displayCommandOutputs>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<!--<delete file="${project.build.directory}/classes/jdbc.properties" />-->
+								<move file="${project.build.directory}/classes/script/startup.sh" tofile="${project.build.directory}/startup.sh"/>
+								<move file="${project.build.directory}/classes/script/shutdown.sh" tofile="${project.build.directory}/shutdown.sh"/>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

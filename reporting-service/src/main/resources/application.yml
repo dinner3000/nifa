@@ -1,5 +1,5 @@
 logging:
-  file: runlog
+#  file: runlog
   level:
     root: info
 

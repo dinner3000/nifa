@@ -31,4 +31,4 @@ logging:
 conf:
   #-------------公共配置信息----------------
   time_out: 600000  #Sftp链接超时时间,单位毫秒
-  feekBackFile: /apps/test/  #http微服务请求状态文件存放本地地址(绝对路径)，便于实时查看数据上传下载状态信息
+  feekBackFile: /root/nifa/reporting-service/feedback/  #http微服务请求状态文件存放本地地址(绝对路径)，便于实时查看数据上传下载状态信息

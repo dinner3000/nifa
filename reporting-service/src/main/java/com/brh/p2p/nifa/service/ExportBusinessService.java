@@ -10,7 +10,6 @@ public interface ExportBusinessService<T> {
     void generateAll(String inputdate);
 
     void removeAllByInputdate(String inputdate);
-
     void clearAll();
 
     void regenerateAllByInputdate(String inputdate);

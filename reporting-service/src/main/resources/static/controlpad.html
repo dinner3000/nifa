@@ -493,7 +493,7 @@
           function (data, status) {
             // console.log(status);
             console.log(data);
-            if(!data.success){
+            if(data.success == "false"){
               $(".modal-body-text").text("接口文件上传失败。");
             } else {
               $(".modal-body-text").text("接口文件上传成功。");

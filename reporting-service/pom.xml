@@ -61,7 +61,6 @@
 				<executions>
 					<execution>
 						<id>upload-deploy</id>
-						<!-- 运行package打包的同时运行upload-single和sshexec -->
 						<phase>install</phase>
 						<goals>
 							<goal>upload</goal>

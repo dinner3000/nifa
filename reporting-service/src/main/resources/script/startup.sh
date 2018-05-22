@@ -9,7 +9,7 @@ CURRENT_DIR="$(cd "$(dirname "$0" )" && pwd )"
 # -server：一定要作为第一个参数，多个CPU时性能佳
 # -Xloggc：记录GC日志，建议写成绝对路径，如此便可在任意目录下执行该shell脚本
 #JAVA_OPTS="-server -Xms2048m -Xmx2048m -Xloggc:${CURRENT_DIR}/gc.log"
-JAVA_OPTS="-jar -Xms512m -Xmx512m -Xloggc:${CURRENT_DIR}/gc.log"
+JAVA_OPTS="-jar -Xloggc:${CURRENT_DIR}/gc.log"
 
 # Java程序日志
 APP_LOG=${CURRENT_DIR}/runlog

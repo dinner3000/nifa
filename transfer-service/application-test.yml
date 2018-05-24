@@ -7,7 +7,7 @@ conf:
   host: 221.238.206.12 # 登记系统sftp服务器ip地址
   port: 27980 #登记系统sftp服务器端口号
   userName: brh_mgr #登记系统sftp服务器登录用户名
-  password: 1qa@WS  #登记系统sftp服务器登录密码
+  password: password  #登记系统sftp服务器登录密码
 
   #-------------统计监测二期配置信息---------
   pubxTwo: f010ff961f5b9511440830b837072e216741e56a66644468738cf29d3eac75c9 #统计监测二期专用公钥x
@@ -16,7 +16,7 @@ conf:
   hostTwo: 221.238.206.12  #统计监测二期 sftp服务器ip地址统计
   portTwo: 27980  #统计监测二期sftp端口号统计
   userNameTwo: brh_mgr  #统计监测二期sftp服务器登录用户名
-  passwordTwo: 1qa@WS  #统计监测二期sftp服务器登录密码
+  passwordTwo: password  #统计监测二期sftp服务器登录密码
 
 server:
     port: 8888 #tomcat端口号

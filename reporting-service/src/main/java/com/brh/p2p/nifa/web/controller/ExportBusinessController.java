@@ -42,6 +42,11 @@ public class ExportBusinessController {
     @Autowired
     private ExportBusinessFileService exportBusinessFileService;
 
+    @GetMapping("/")
+    public String index(){
+        return "forward:/controlpad.html";
+    }
+
     @ResponseBody
     @GetMapping("/generateData")
     @Transactional
@@ -65,41 +70,21 @@ public class ExportBusinessController {
     @GetMapping("/generateFiles")
     @ResponseBody
     public Object generateFiles(String inputdate) throws Exception {
-        exportBusinessFileService.initWorkEnv(inputdate);
-        String packagePath =  exportBusinessFileService.generateFilePackage();
+        String packagePath =  exportBusinessFileService.generateFilePackage(inputdate);
 
         return packagePath;
     }
-
-    @Value("${nifa.transfer-service.upload-url}")
-    private String nifaTransferServiceUploadUrl;
 
     @GetMapping("/sendFiles")
     @ResponseBody
     public Object sendFiles(String inputdate) throws Exception {
 
         logger.info("Generate package for date: {}", inputdate);
-        exportBusinessFileService.initWorkEnv(inputdate);
-        String packagePath =  exportBusinessFileService.generateFilePackage();
+        String packagePath =  exportBusinessFileService.generateFilePackage(inputdate);
 
-        String url = String.format(
-                nifaTransferServiceUploadUrl,
-                URLEncoder.encode(packagePath, "UTF-8"));
-
-        logger.info("Prepare to sent file via url: {}", url);
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet(url);
-        CloseableHttpResponse response = httpclient.execute(httpGet);
         String ret = null;
-        try {
-            logger.info(response.getStatusLine().toString());
-            HttpEntity entity = response.getEntity();
-            ret = EntityUtils.toString(entity);
-            EntityUtils.consume(entity);
-        } finally {
-            response.close();
-        }
-        logger.info("Completed: {}", ret);
+        ret = exportBusinessFileService.transferFilePackage(packagePath);
+
         return ret;
     }
 

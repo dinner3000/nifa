@@ -71,11 +71,11 @@
 							<includes>*.jar,*.sh</includes>
 							<!-- <excludes>*</excludes> -->
 							<url>scp://root:Bt2016@10.211.17.72</url>
-							<toDir>/root/nifa/reporting-service</toDir>
+							<toDir>/root/nifa/reporting-service/${activeProfile}</toDir>
 							<commands>
-								<command><![CDATA[chmod 755 /root/nifa/reporting-service/*.sh]]></command>
-								<command><![CDATA[cd /root/nifa/reporting-service && sh ./shutdown.sh]]> ${activeProfile}</command>
-								<command><![CDATA[cd /root/nifa/reporting-service && sh ./startup.sh]]> ${activeProfile}</command>
+								<command><![CDATA[chmod 755 /root/nifa/reporting-service]]>/${activeProfile}/*.sh</command>
+								<command><![CDATA[cd /root/nifa/reporting-service]]>/${activeProfile} <![CDATA[&& sh ./shutdown.sh]]> ${activeProfile}</command>
+								<command><![CDATA[cd /root/nifa/reporting-service]]>/${activeProfile} <![CDATA[&& sh ./startup.sh]]> ${activeProfile}</command>
 							</commands>
 							<displayCommandOutputs>true</displayCommandOutputs>
 						</configuration>

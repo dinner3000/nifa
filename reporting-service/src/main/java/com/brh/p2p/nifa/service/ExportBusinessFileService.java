@@ -8,13 +8,13 @@ import java.text.ParseException;
 
 public interface ExportBusinessFileService {
 
-    void initWorkEnv(String inputDate) throws ParseException;
+    String transferFilePackage(String packagePath) throws Exception;
 
-    String generateFilePackage() throws Exception;
+    String generateFilePackage(String inputDate) throws Exception;
 
-    File generateProjFile() throws IOException, TemplateException;
+    File generateProjFile(String inputDate) throws Exception;
 
-    File generateBorFile() throws IOException, TemplateException;
+    File generateBorFile(String inputDate) throws Exception;
 
-    File generateInvFile() throws IOException, TemplateException;
+    File generateInvFile(String inputDate) throws Exception;
 }

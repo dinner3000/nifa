@@ -27,46 +27,46 @@ public class DruidDBConfig {
     @Value("${spring.datasource.driver-class-name}")
     private String driverClassName;
 
-    @Value("${spring.datasource.initialSize}")
+    @Value("${spring.datasource.connection-pool.initialSize}")
     private int initialSize;
 
-    @Value("${spring.datasource.minIdle}")
+    @Value("${spring.datasource.connection-pool.minIdle}")
     private int minIdle;
 
-    @Value("${spring.datasource.maxActive}")
+    @Value("${spring.datasource.connection-pool.maxActive}")
     private int maxActive;
 
-    @Value("${spring.datasource.maxWait}")
+    @Value("${spring.datasource.connection-pool.maxWait}")
     private int maxWait;
 
-    @Value("${spring.datasource.timeBetweenEvictionRunsMillis}")
+    @Value("${spring.datasource.connection-pool.timeBetweenEvictionRunsMillis}")
     private int timeBetweenEvictionRunsMillis;
 
-    @Value("${spring.datasource.minEvictableIdleTimeMillis}")
+    @Value("${spring.datasource.connection-pool.minEvictableIdleTimeMillis}")
     private int minEvictableIdleTimeMillis;
 
-    @Value("${spring.datasource.validationQuery}")
+    @Value("${spring.datasource.connection-pool.validationQuery}")
     private String validationQuery;
 
-    @Value("${spring.datasource.testWhileIdle}")
+    @Value("${spring.datasource.connection-pool.testWhileIdle}")
     private boolean testWhileIdle;
 
-    @Value("${spring.datasource.testOnBorrow}")
+    @Value("${spring.datasource.connection-pool.testOnBorrow}")
     private boolean testOnBorrow;
 
-    @Value("${spring.datasource.testOnReturn}")
+    @Value("${spring.datasource.connection-pool.testOnReturn}")
     private boolean testOnReturn;
 
-    @Value("${spring.datasource.poolPreparedStatements}")
+    @Value("${spring.datasource.connection-pool.poolPreparedStatements}")
     private boolean poolPreparedStatements;
 
-    @Value("${spring.datasource.maxPoolPreparedStatementPerConnectionSize}")
+    @Value("${spring.datasource.connection-pool.maxPoolPreparedStatementPerConnectionSize}")
     private int maxPoolPreparedStatementPerConnectionSize;
 
-    @Value("${spring.datasource.filters}")
+    @Value("${spring.datasource.connection-pool.filters}")
     private String filters;
 
-    @Value("{spring.datasource.connectionProperties}")
+    @Value("{spring.datasource.connection-pool.connectionProperties}")
     private String connectionProperties;
 
     @Bean     //声明其为Bean实例

@@ -3,7 +3,7 @@ logging:
     com.brh.p2p.nifa: debug
 
 server:
-  port: 8089
+  port: 8088
 
 spring:
   datasource:
@@ -14,6 +14,6 @@ spring:
 nifa:
   transfer-service:
     host: 127.0.0.1
-    port: 8889
+    port: 8888
   work-dir:
     datafiles: ${user.dir}/datafiles

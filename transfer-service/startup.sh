@@ -5,6 +5,13 @@ JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.171-7.b10.el7.x86_64"
 
 CURRENT_DIR="$(cd "$(dirname "$0" )" && pwd )"
 
+PROFILE=test
+if [ ! -z "${1}" ]; then
+	if [ "${1}" == "prod" ]; then
+		PROFILE=${1}
+	fi
+fi
+
 # JVM启动参数
 # -server：一定要作为第一个参数，多个CPU时性能佳
 # -Xloggc：记录GC日志，建议写成绝对路径，如此便可在任意目录下执行该shell脚本
@@ -12,7 +19,7 @@ CURRENT_DIR="$(cd "$(dirname "$0" )" && pwd )"
 JAVA_OPTS="-jar -Xloggc:${CURRENT_DIR}/gc.log"
 
 # Java程序日志
-APP_LOG=${CURRENT_DIR}/runlog
+APP_LOG=${CURRENT_DIR}/runlog-${PROFILE}
 
 # Java程序主体所在的目录，即classes的上一级目录
 APP_HOME=${CURRENT_DIR}
@@ -29,13 +36,6 @@ APP_MAIN="nifa-sftp-service.jar"
 
 # 初始化全局变量，用于标识交易前置系统的PID（0表示未启动）
 PID=0
-
-PROFILE=dev
-if [ ! -z "${1}" ]; then
-	if [ "${1}" == "prod" ]; then
-		PROFILE=${1}
-	fi
-fi
 
 # 获取Java应用的PID
 # ------------------------------------------------------------------------------------------------------

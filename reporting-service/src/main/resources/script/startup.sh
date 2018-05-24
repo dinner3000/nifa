@@ -11,8 +11,17 @@ CURRENT_DIR="$(cd "$(dirname "$0" )" && pwd )"
 #JAVA_OPTS="-server -Xms2048m -Xmx2048m -Xloggc:${CURRENT_DIR}/gc.log"
 JAVA_OPTS="-jar -Xloggc:${CURRENT_DIR}/gc.log"
 
+PROFILE=dev
+if [ ! -z "${1}" ]; then
+        if [ "${1}" == "prod" ]; then
+                PROFILE=${1}
+        elif [ "${1}" == "test" ]; then
+                PROFILE=${1}
+        fi
+fi
+
 # Java程序日志
-APP_LOG=${CURRENT_DIR}/runlog
+APP_LOG=${CURRENT_DIR}/runlog-${PROFILE}
 
 # Java程序主体所在的目录，即classes的上一级目录
 APP_HOME=${CURRENT_DIR}
@@ -66,7 +75,7 @@ startup(){
     else
         echo -n "Starting $APP_MAIN"
 #        nohup $JAVA_HOME/bin/java $JAVA_OPTS -classpath $CLASSPATH $APP_MAIN > $APP_LOG/nohup.log &
-        nohup $JAVA_HOME/bin/java $JAVA_OPTS $APP_MAIN > $APP_LOG 2>&1 &
+        nohup $JAVA_HOME/bin/java $JAVA_OPTS $APP_MAIN --spring.profiles.active=${PROFILE} > $APP_LOG 2>&1 &
         getPID
         if [ $PID -ne 0 ]; then
             echo "(PID=$PID)...[Success]"

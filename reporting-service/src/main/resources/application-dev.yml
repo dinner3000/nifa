@@ -3,7 +3,7 @@ logging:
     com.brh.p2p.nifa: debug
 
 server:
-  port: 8080
+  port: 8088
 
 spring:
   datasource:

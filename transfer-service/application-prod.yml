@@ -17,3 +17,6 @@ conf:
   portTwo: 37980  #统计监测二期sftp端口号统计
   userNameTwo: brh_mgr  #统计监测二期sftp服务器登录用户名
   passwordTwo: M439B20u  #统计监测二期sftp服务器登录密码
+
+server:
+    port: 8889 #tomcat端口号

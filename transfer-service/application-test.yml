@@ -17,3 +17,6 @@ conf:
   portTwo: 27980  #统计监测二期sftp端口号统计
   userNameTwo: brh_mgr  #统计监测二期sftp服务器登录用户名
   passwordTwo: 1qa@WS  #统计监测二期sftp服务器登录密码
+
+server:
+    port: 8888 #tomcat端口号

@@ -74,8 +74,8 @@
 							<toDir>/root/nifa/reporting-service</toDir>
 							<commands>
 								<command><![CDATA[chmod 755 /root/nifa/reporting-service/*.sh]]></command>
-								<command><![CDATA[cd /root/nifa/reporting-service && sh ./shutdown.sh]]></command>
-								<command><![CDATA[cd /root/nifa/reporting-service && sh ./startup.sh]]> ${activeProfile}}</command>
+								<command><![CDATA[cd /root/nifa/reporting-service && sh ./shutdown.sh]]> ${activeProfile}</command>
+								<command><![CDATA[cd /root/nifa/reporting-service && sh ./startup.sh]]> ${activeProfile}</command>
 							</commands>
 							<displayCommandOutputs>true</displayCommandOutputs>
 						</configuration>

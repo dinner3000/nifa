@@ -1,10 +1,18 @@
 #!/bin/sh
 APP_MAIN="nifa-sftp-service.jar"
 
+PROFILE=
+if [ ! -z "${1}" ]; then
+    PROFILE=${1}
+else
+    echo "Profile must be specified, exit"
+    exit 0
+fi
+
 PID=0
 
 getPID(){
-    javaps=`$JAVA_HOME/bin/jps -l | grep $APP_MAIN`
+    javaps=`ps axo pid,command | grep $APP_MAIN |grep ${PROFILE}`
     if [ -n "$javaps" ]; then
         PID=`echo $javaps | awk '{print $1}'`
     else

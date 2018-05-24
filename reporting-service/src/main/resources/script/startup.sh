@@ -5,20 +5,19 @@ JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.171-7.b10.el7.x86_64"
 
 CURRENT_DIR="$(cd "$(dirname "$0" )" && pwd )"
 
+PROFILE=
+if [ ! -z "${1}" ]; then
+    PROFILE=${1}
+else
+    echo "Profile must be specified, exit"
+    exit 0
+fi
+
 # JVM启动参数
 # -server：一定要作为第一个参数，多个CPU时性能佳
 # -Xloggc：记录GC日志，建议写成绝对路径，如此便可在任意目录下执行该shell脚本
 #JAVA_OPTS="-server -Xms2048m -Xmx2048m -Xloggc:${CURRENT_DIR}/gc.log"
-JAVA_OPTS="-jar -Xloggc:${CURRENT_DIR}/gc.log"
-
-PROFILE=dev
-if [ ! -z "${1}" ]; then
-        if [ "${1}" == "prod" ]; then
-                PROFILE=${1}
-        elif [ "${1}" == "test" ]; then
-                PROFILE=${1}
-        fi
-fi
+JAVA_OPTS="-jar -Xloggc:${CURRENT_DIR}/gc-${PROFILE}.log"
 
 # Java程序日志
 APP_LOG=${CURRENT_DIR}/runlog-${PROFILE}
@@ -48,7 +47,7 @@ PID=0
 # 另外：这个命令也可以取到程序的PID-->[ps aux|grep java|grep $APP_MAIN|grep -v grep|awk '{print $2}']
 # ------------------------------------------------------------------------------------------------------
 getPID(){
-    javaps=`$JAVA_HOME/bin/jps -l | grep $APP_MAIN`
+    javaps=`ps axo pid,command | grep $APP_MAIN |grep ${PROFILE}`
     if [ -n "$javaps" ]; then
         PID=`echo $javaps | awk '{print $1}'`
     else

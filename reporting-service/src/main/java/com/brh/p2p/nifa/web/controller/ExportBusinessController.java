@@ -42,11 +42,6 @@ public class ExportBusinessController {
     @Autowired
     private ExportBusinessFileService exportBusinessFileService;
 
-    @GetMapping("/")
-    public String index(){
-        return "forward:/controlpad.html";
-    }
-
     @ResponseBody
     @GetMapping("/generateData")
     @Transactional
